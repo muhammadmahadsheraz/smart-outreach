@@ -1,140 +1,40 @@
 import Image from "next/image";
+import BarChart from "../../components/BarChart";
+import Sidebar from "../../components/Sidebar";
 
 export default function HomePage() {
   return (
     <div className="max-w-[1440px] mx-auto flex bg-slate-50 font-sans">
       <main className="flex w-full bg-white">
-        <section className="flex h-[960px] w-[296px] flex-col border-r border-slate-200">
-          <div className="flex w-full flex-col px-5 gap-5 py-5">
-            <div className="flex w-full items-center justify-between">
-              <Image
-                src="/logo.svg"
-                alt="Ateni"
-                width={142}
-                height={28}
-                priority
-              />
-              <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#D5D7DA] p-2">
-                <Image
-                  src="/chevron-left-double.svg"
-                  alt="Expand navigation"
-                  width={20}
-                  height={20}
-                />
-              </div>
-            </div>
-            <div className="w-full">
-              <input
-                type="search"
-                placeholder="Search"
-                className="w-full rounded-lg border border-[#D5D7DA] bg-white px-3 py-2 text-sm text-slate-900 outline-none shadow-[0px_1px_2px_0px_#0A0D120D] focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
-              />
-            </div> 
-          </div>
+        <Sidebar />
+        <section className="relative flex h-[960px] w-[1144px] flex-col items-center pb-12 gap-9">
+        <div
+        style={{
+          position: "absolute",
+          top: "-2%",
+          left: 0,
+          width: "65%",
+          height: "42%",
+          background:
+            "radial-gradient(ellipse at 45% 52%, rgba(255, 195, 215, 0.42) 0%, rgba(255, 210, 225, 0.28) 35%, rgba(255, 225, 232, 0.12) 60%, transparent 78%)",
+          pointerEvents: "none",
+        }}
+      />
 
-          <div className="flex w-full flex-col px-4 pt-2 space-y-1">
-            {[
-              { label: "Home", icon: "home" },
-              { label: "Margot training", icon: "margot_training" },
-              { label: "Campaigns", icon: "campaigns" },
-              { label: "Inbox", icon: "inbox" },
-              { label: "Reports", icon: "reports" },
-            ].map((item, index) => (
-              <button
-                key={item.label}
-                type="button"
-                className={`flex h-11 w-full items-center rounded-lg px-2 py-0.5 gap-2 text-base leading-6 font-semibold ${
-                  index === 0
-                    ? "bg-slate-100 text-slate-900"
-                    : "text-slate-600 hover:bg-slate-50"
-                }`}
-              >
-                <span className="flex h-5 w-[22px] items-center justify-center">
-                  <Image
-                    src={`/${item.icon}.svg`}
-                    alt={item.label}
-                    width={20}
-                    height={20}
-                  />
-                </span>
-                <span className="truncate">{item.label}</span>
-              </button>
-            ))}
-          </div>
-
-          <div className="flex w-full flex-col px-4 pb-6 pt-4 gap-4 mt-auto">
-            <button
-              type="button"
-              className="flex h-11 w-full items-center gap-2 rounded-lg px-2 py-0.5 text-base leading-6 font-semibold text-slate-700 hover:bg-slate-50"
-            >
-              <span className="flex h-5 w-5 items-center justify-center">
-                <Image
-                  src="/settings.svg"
-                  alt="Settings"
-                  width={20}
-                  height={20}
-                />
-              </span>
-              <span>Settings</span>
-            </button>
-            <div className="flex w-full flex-col rounded-[12px] border border-[#D5D7DA] p-4 gap-4">
-              <h3 className="text-sm font-semibold leading-5 text-slate-900">
-                Active campaigns
-              </h3>
-              <div className="flex flex-col gap-2">
-                {[
-                  { color: "#3A88FD", label: "Lorem ipsum" },
-                  { color: "#7A5AF8", label: "Lorem ipsum" },
-                  { color: "#EE46BC", label: "Lorem ipsum" },
-                ].map((item) => (
-                  <div
-                    key={item.color}
-                    className="flex w-full items-center gap-2"
-                  >
-                    <span
-                      className="h-2 w-2 rounded-full"
-                      style={{ backgroundColor: item.color }}
-                    />
-                    <span className="text-sm font-medium leading-5 text-slate-700">
-                      {item.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-              <button
-                type="button"
-                className="mt-1 inline-flex items-center gap-1.5 text-sm font-medium leading-5 text-[#013F9D]"
-              >
-                <span>View all</span>
-                <Image
-                  src="/arrow-blue.svg"
-                  alt=""
-                  width={11.67}
-                  height={11.67}
-                  aria-hidden
-                />
-              </button>
-            </div>
-
-            <div className="flex w-full items-center gap-4 rounded-[12px] border border-[#D5D7DA] p-3">
-              <div className="relative h-10 w-10 rounded-full bg-slate-200">
-                <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border-2 border-white bg-[#16A34A]" />
-              </div>
-              <div className="flex min-w-0 flex-col">
-                <span className="text-sm font-semibold leading-5 text-slate-900">
-                  User name
-                </span>
-                <span className="text-sm font-normal leading-5 text-slate-600">
-                  loremipsum@gmail.com
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="flex h-[960px] w-[1144px] flex-col items-center pb-12 gap-9">
+      <div
+        style={{
+          position: "absolute",
+          top: "-2%",
+          right: 0,
+          width: "65%",
+          height: "42%",
+          background:
+            "radial-gradient(ellipse at 55% 52%, rgba(175, 215, 248, 0.42) 0%, rgba(190, 222, 250, 0.28) 35%, rgba(205, 228, 250, 0.12) 60%, transparent 78%)",
+          pointerEvents: "none",
+        }}
+      />
           <div className="flex w-full max-w-[1280px] flex-col items-center gap-6 px-8 pt-8">
-            <div className="relative h-40 w-40 rounded-full border-[4px] border-white bg-white shadow-[0_18px_45px_rgba(15,23,42,0.14)] overflow-hidden">
+            <div className="relative h-40 w-40 rounded-full border-[4px] border-white bg-white shadow-[0px_2px_2px_-1px_#0A0D120A,0px_4px_6px_-2px_#0A0D1208] overflow-hidden">
               <Image
                 src="/avatar.png"
                 alt="Margot"
@@ -154,7 +54,148 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="flex-1 w-full max-w-[1280px] rounded-3xl bg-slate-50" />
+          <div className="w-full max-w-[1280px] px-8">
+            <div className="flex w-full items-center justify-between h-[60px] gap-5">
+              <div className="flex flex-col flex-1 min-w-[320px] max-w-[891px] gap-1">
+                <h2 className="text-[24px] leading-8 font-semibold text-[#181D27]">
+                  Dashboard
+                </h2>
+                <p className="text-[16px] leading-6 text-slate-600">
+                  Here is a summary of the customer search campaigns I am running.
+                </p>
+              </div>
+
+              <button
+                type="button"
+                className="flex items-center h-10 rounded-[8px] bg-[#3373F5] text-white border-2 border-[#3373F5] px-[14px] gap-1 shadow-[0_1px_2px_rgba(16,24,40,0.05)]"
+              >
+                <span className="px-[2px] text-[14px] font-semibold leading-5">
+                  Create campaign
+                </span>
+                <Image src = "/LandingPage/announcement.svg" alt="announcement" className="ml-2 inline-block w-5 h-5" width={20} height={20} aria-hidden />
+              </button>
+            </div>
+          </div>
+
+          <div className="w-full max-w-[1280px] px-8">
+            <div className="flex w-full gap-[20px] mt-6">
+              {[{src :"/LandingPage/announcement-gray-icon.svg",
+              text: "All Campaigns",
+              number: "10",
+              percentage: "2.4%",
+              key:1
+              }, {src :"/LandingPage/leads-icon.svg",
+                text: "Leads",
+                number: "10",
+                percentage: "2.4%",
+                key:2
+                }, {src :"/LandingPage/responses-obtained-icon.svg",
+                  text: "Responses obtained",
+                  number: "10",
+                  percentage: "2.4%",
+                  key:3
+                  }].map((item) => (
+                <div
+                  key={item.key}
+                  className="flex w-full max-w-[346px] min-w-[304px] rounded-[12px] border-2 border-[#E9EAEB] bg-white p-5 gap-4 shadow-[0px_1px_2px_0px_#1018280D]"
+                >
+                  <div className="flex items-start">
+                    <div className="w-10 h-10 rounded-[8px] border border-[#E9EAEB] bg-white flex items-center justify-center shadow-[0px_1px_2px_0px_#1018280D,0px_-2px_0px_0px_#0A0D120A]">
+                      <Image src= {item.src} alt = "icon" className="w-5 h-5" width={20} height={20} />
+                    </div>
+                  </div>
+
+                  <div className="flex-1 flex flex-col justify-between">
+                    <span className="text-sm font-semibold text-[#535862]">{item.text}</span>
+
+                    <div className="flex items-center justify-between">
+                      <span className="text-[30px] leading-[38px] font-semibold text-[#181D27]">{item.number}</span>
+
+                      <div className="flex items-center gap-[4px] border rounded-[6px] border-[#D5D7DA] px-2 py-1 shadow-[0px_1px_2px_0px_#1018280D]">
+                        <div className = "w-[12px] h-[12px] relative">
+                        <Image src = "/LandingPage/arrow-upright-icon.svg" alt = "icon" width= {20} height = {20} className="absolute top-[3.5px] left-[3.5px] w-[6px] h-[6px]" />
+                        </div>
+                        <span className="text-[14px] leading-[20px] font-medium font-inter text-[#414651]">{item.percentage}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Column container beneath the cards (padding left/right 32px, gap 24px) */}
+          <div className="w-full max-w-[1280px] px-[32px] mt-6">
+            <div className="flex flex-col gap-[20px]">
+              {/* toggle row: Your company / Your clients / Products/Services offered */}
+              <div className="self-stretch bg-neutral-50 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 inline-flex justify-center items-center gap-0.5">
+                <div className="flex-1 h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 flex justify-center items-center gap-2 overflow-hidden">
+                  <div className="text-gray-700 text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
+                    Your company
+                  </div>
+                </div>
+                <div className="flex-1 h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
+                  <div className="text-gray-500 text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
+                    Your clients
+                  </div>
+                </div>
+                <div className="flex-1 h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
+                  <div className="text-gray-500 text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
+                    Products/Services offered
+                  </div>
+                </div>
+              </div>
+              <div className="flex items-start justify-between gap-4 w-full">
+                <div className="flex-1 flex items-center gap-1">
+                  <div className="text-[18px] leading-7 font-semibold text-[#181D27] font-['Plus_Jakarta_Sans']">
+                    Business opportunities found by Margot
+                  </div>
+                  <div className="text-emerald-600 text-[18px] leading-7 font-semibold font-['Plus_Jakarta_Sans']">
+                    +104%
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <div className="bg-neutral-50 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 flex justify-start items-center gap-0.5">
+                    <div className="h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 flex justify-center items-center gap-2 overflow-hidden">
+                      <div className="text-gray-700 text-sm font-semibold font-['Inter'] leading-5">12 meses</div>
+                    </div>
+                    <div className="h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
+                      <div className="text-gray-500 text-sm font-semibold font-['Inter'] leading-5">30 días</div>
+                    </div>
+                    <div className="h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
+                      <div className="text-gray-500 text-sm font-semibold font-['Inter'] leading-5">7 días</div>
+                    </div>
+                    <div className="h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden">
+                      <div className="text-gray-500 text-sm font-semibold font-['Inter'] leading-5">24 horas</div>
+                    </div>
+                  </div>
+
+                  <div className="px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(10,13,18,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(10,13,18,0.18)] outline outline-1 outline-offset-[-1px] outline-zinc-300 flex justify-center items-center gap-1 overflow-hidden">
+                    <div className="w-5 h-5 relative overflow-hidden">
+                      <div className="w-[14px] h-[10px] left-[2.5px] top-[5px] absolute outline outline-[1.67px] outline-offset-[-0.83px] outline-gray-700" />
+                    </div>
+                    <div className="px-0.5 flex justify-center items-center">
+                      <div className="text-gray-700 text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">Filtros</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="w-full max-w-[1280px] px-[32px] mt-6">
+            <div className="w-full bg-white">
+              <BarChart
+                data={[
+                  20, 14, 3, 20, 24, 12, 16, 20, 28, 36, 2, 2, 16, 6, 4, 6, 2, 44, 2, 20, 16,
+                  8, 36, 14, 14, 32, 5, 24, 28, 12, 20, 28, 28, 20, 28, 32, 36, 9, 9, 36, 36, 36,
+                ]}
+                height={208}
+                color="#3373F5"
+              />
+            </div>
+          </div>
+
         </section>
       </main>
     </div>
