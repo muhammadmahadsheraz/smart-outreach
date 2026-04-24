@@ -1,35 +1,43 @@
-import { NextResponse } from "next/server";
-import { verifyUser } from "@/lib/userStore";
+import { NextResponse, type NextRequest } from "next/server";
 
-export async function POST(request: Request) {
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
+
+export async function POST(request: NextRequest) {
+  
   try {
     const body = await request.json();
-    const { email, password } = body ?? {};
-
-    if (!email || !password) {
-      return NextResponse.json(
-        { ok: false, error: "Missing email or password" },
-        { status: 400 }
-      );
-    }
-
-    const user = await verifyUser(email, password);
-    if (!user) {
-      return NextResponse.json(
-        { ok: false, error: "Invalid email or password" },
-        { status: 401 }
-      );
-    }
-
-    // For now we just return a success payload; no real session handling
-    return NextResponse.json({
-      ok: true,
-      user: { email: user.email, name: user.name, company: user.company },
+    const backendRes = await fetch(`${BACKEND_URL}/api/login`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     });
-  } catch (error) {
-    console.error("Login error", error);
+    
+    const backendData = await backendRes.json();
+    
+    const response = NextResponse.json(
+      {
+        ok: backendData.ok,
+        token: backendData.token,
+        user: backendData.user,
+        error: backendData.error,
+      },
+      { status: backendRes.status }
+    );
+
+    if (backendData.ok && backendData.token) {
+      response.cookies.set("auth-token", backendData.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60,
+      });
+    }
+
+    return response;
+  } catch (error: any) {
+    console.error("LOGIN Error:", error?.message);
     return NextResponse.json(
-      { ok: false, error: "Internal server error" },
+      { ok: false, error: error?.message || "Unknown error" },
       { status: 500 }
     );
   }

@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 
 interface CompanyDetailsProps extends React.FormHTMLAttributes<HTMLFormElement> {}
@@ -11,10 +11,65 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
   const [companyWebsite, setCompanyWebsite] = React.useState("");
   const [companyDescription, setCompanyDescription] = React.useState("");
   const [file, setFile] = React.useState<File | null>(null);
+  const [loading, setLoading] = React.useState(false);
+  const [message, setMessage] = React.useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Fetch existing company data on mount
+  useEffect(() => {
+    const fetchCompanyData = async () => {
+      try {
+        const response = await fetch("/api/margot/company", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await response.json();
+
+        if (data.ok && data.data) {
+          setCompanyName(data.data.companyName || "");
+          setCompanyWebsite(data.data.website || "");
+          setCompanyDescription(data.data.description || "");
+        }
+      } catch (error) {
+        // Silently handle error
+      }
+    };
+
+    fetchCompanyData();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ companyName, companyWebsite, companyDescription, file });
+    setLoading(true);
+    setMessage(null);
+
+    try {
+      // For now, we'll save without the file. File upload will be handled separately
+      const response = await fetch("/api/margot/company", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          companyName,
+          website: companyWebsite,
+          description: companyDescription,
+          brochureUrl: "", // Will handle file upload separately
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.ok) {
+        setMessage({ type: "success", text: "Company details saved successfully!" });
+        // Optionally reset after success
+        // handleReset();
+      } else {
+        setMessage({ type: "error", text: data.error || "Failed to save" });
+      }
+    } catch (error: any) {
+      setMessage({ type: "error", text: error.message || "Error saving company details" });
+    } finally {
+      setLoading(false);
+    }
   };
  
   const handleReset = () => {
@@ -22,6 +77,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
     setCompanyWebsite("");
     setCompanyDescription("");
     setFile(null);
+    setMessage(null);
   };
   return (
     <form
@@ -51,7 +107,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                 </div>
               </div>
               <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5">
-                Lorem ipsum dolor sit amet.
+                Please enter the full legal name of your company.
               </div>
             </div>
             <div
@@ -70,7 +126,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
                   placeholder="Enter company name"
-                  className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
+                  className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-900"
                 />
               </div>
             </div>
@@ -90,7 +146,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                 </div>
               </div>
               <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Inter'] leading-5">
-                Lorem ipsum dolor sit amet.
+                Provide your company’s main website URL (e.g., https://yourcompany.com).
               </div>
             </div>
             <div className="flex-1 inline-flex flex-col justify-start items-start gap-1.5">
@@ -118,7 +174,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                 </div>
               </div>
               <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5">
-                Lorem ipsum dolor sit amet.
+                Briefly describe what your company does, its mission, or main activities.
               </div>
             </div>
             <textarea
@@ -144,7 +200,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                 </div>
               </div>
               <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5">
-                Lorem ipsum dolor sit amet.
+                (Optional) Upload a company presentation or brochure to help us understand your business better.
               </div>
             </div>
             <div className="flex-1 h-24 inline-flex flex-col justify-start items-start gap-4">
@@ -183,6 +239,11 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
         {file && (
           <div className="text-sm text-gray-700 mt-2">Selected file: {file.name}</div>
         )}
+        {message && (
+          <div className={`text-sm mt-2 p-2 rounded ${message.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+            {message.text}
+          </div>
+        )}
         {/* divider + buttons */}
         <div className="self-stretch flex flex-col justify-start items-center gap-5">
           <div className="self-stretch h-px bg-gray-200" />
@@ -200,10 +261,10 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                   </div>
                 </div>
               </button>
-              <button type="submit" className="px-3.5 py-2.5 bg-blue-700 rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(10,13,18,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(10,13,18,0.18)] outline outline-2 outline-offset-[-2px] outline-white/10 flex justify-center items-center gap-1 overflow-hidden">
+              <button type="submit" disabled={loading} className="px-3.5 py-2.5 bg-blue-700 rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(10,13,18,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(10,13,18,0.18)] outline outline-2 outline-offset-[-2px] outline-white/10 flex justify-center items-center gap-1 overflow-hidden disabled:opacity-50">
                 <div className="px-0.5 flex justify-center items-center">
                   <div className="justify-start text-white text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
-                    Save changes
+                    {loading ? "Saving..." : "Save changes"}
                   </div>
                 </div>
               </button>

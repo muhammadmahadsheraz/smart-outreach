@@ -19,9 +19,10 @@ type BarChartProps = {
   labels?: string[];
   height?: number;
   color?: string;
+  timeRange?: string;
 };
 
-export default function BarChart({ data, labels, height = 208, color = "#3373F5" }: BarChartProps) {
+export default function BarChart({ data, labels, height = 208, color = "#3373F5", timeRange }: BarChartProps) {
   const labelsArr = labels ?? data.map((_, i) => `${i + 1}`);
 
   const chartData = {

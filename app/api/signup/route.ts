@@ -1,39 +1,46 @@
-import { NextResponse } from "next/server";
-import { createUser } from "@/lib/userStore";
+import { NextResponse, type NextRequest } from "next/server";
 
-export async function POST(request: Request) {
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
+
+export async function POST(request: NextRequest) {
+  
   try {
-    const body = await request.json();
-    const { firstName, lastName, email, company, password } = body ?? {};
-
-    if (!email || !password || !firstName) {
-      return NextResponse.json(
-        { ok: false, error: "Missing required fields" },
-        { status: 400 }
-      );
-    }
-
-    const name = lastName ? `${firstName} ${lastName}` : firstName;
-
-    await createUser({
-      email,
-      name,
-      company,
-      password,
+        const body = await request.json();
+     
+    // Forward to backend Express server
+    
+    const backendRes = await fetch(`${BACKEND_URL}/api/signup`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
     });
+    
+    const backendData = await backendRes.json();
+    console.log("SIGNUP Backend response:", backendData);    
+    const response = NextResponse.json(
+      {
+        ok: backendData.ok,
+        token: backendData.token,
+        user: backendData.user,
+        error: backendData.error,
+      },
+      { status: backendRes.status }
+    );
 
-    return NextResponse.json({ ok: true });
-  } catch (error: any) {
-    if (error instanceof Error && error.message === "User already exists") {
-      return NextResponse.json(
-        { ok: false, error: "User already exists" },
-        { status: 409 }
-      );
+    if (backendData.ok && backendData.token) {
+      response.cookies.set("auth-token", backendData.token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "lax",
+        maxAge: 24 * 60 * 60, 
+      });
     }
 
-    console.error("Signup error", error);
+    return response;
+  } catch (error: any) {
+    
     return NextResponse.json(
-      { ok: false, error: "Internal server error" },
+      { ok: false, error: error?.message || "Unknown error" },
       { status: 500 }
     );
   }

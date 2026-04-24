@@ -1,19 +1,71 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function ProductsDetails() {
   const [productService, setProductService] = React.useState("");
   const [whyChoose, setWhyChoose] = React.useState("");
   const [successStories, setSuccessStories] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const [message, setMessage] = React.useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Fetch existing product data on mount
+  useEffect(() => {
+    const fetchProductData = async () => {
+      try {
+        const response = await fetch("/api/margot/product", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await response.json();
+
+        if (data.ok && data.data) {
+          setProductService(data.data.product || "");
+          setWhyChoose(data.data.edge || "");
+          setSuccessStories(data.data.successStories || "");
+        }
+      } catch (error) {
+        // Silently handle error
+      }
+    };
+
+    fetchProductData();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ productService, whyChoose, successStories });
+    setLoading(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch("/api/margot/product", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          product: productService,
+          edge: whyChoose,
+          successStories: successStories,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.ok) {
+        setMessage({ type: "success", text: "Product details saved successfully!" });
+      } else {
+        setMessage({ type: "error", text: data.error || "Failed to save" });
+      }
+    } catch (error: any) {
+      setMessage({ type: "error", text: error.message || "Error saving product details" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {
     setProductService("");
     setWhyChoose("");
     setSuccessStories("");
+    setMessage(null);
   };
 
   return (
@@ -33,7 +85,7 @@ export default function ProductsDetails() {
             </div>
           </div>
           <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5">
-            Lorem ipsum dolor sit amet.
+            Briefly describe the main product or service your company offers.
           </div>
         </div>
         <div
@@ -51,7 +103,7 @@ export default function ProductsDetails() {
             value={productService}
             onChange={(e) => setProductService(e.target.value)}
             placeholder="Describe product/service"
-            className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
+            className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-900"
           />
         </div>
       </div>
@@ -70,7 +122,7 @@ export default function ProductsDetails() {
             </div>
           </div>
           <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5">
-            Lorem ipsum dolor sit amet.
+            What makes your offering unique? Highlight your competitive advantages.
           </div>
         </div>
         <div
@@ -87,7 +139,7 @@ export default function ProductsDetails() {
             value={whyChoose}
             onChange={(e) => setWhyChoose(e.target.value)}
             placeholder="Explain why"
-            className="self-stretch h-40 px-3.5 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 resize-y overflow-visible pr-2"
+            className="self-stretch h-40 px-3.5 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 resize-y overflow-visible pr-2 text-gray-900"
           />
         </div>
       </div>
@@ -109,7 +161,7 @@ export default function ProductsDetails() {
             </div>
           </div>
           <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5">
-            Lorem ipsum dolor sit amet.
+            Share a few examples of successful client outcomes or testimonials.
           </div>
         </div>
         <div
@@ -126,11 +178,16 @@ export default function ProductsDetails() {
             value={successStories}
             onChange={(e) => setSuccessStories(e.target.value)}
             placeholder="Describe successes"
-            className="self-stretch h-40 px-3.5 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 resize-y overflow-visible pr-2"
+            className="self-stretch h-40 px-3.5 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 resize-y overflow-visible pr-2 text-gray-900"
           />
         </div>
       </div>
       {/* divider + buttons */}
+      {message && (
+        <div className={`text-sm p-2 rounded ${message.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+          {message.text}
+        </div>
+      )}
       <div className="self-stretch flex flex-col justify-start items-center gap-5">
         <div className="self-stretch h-px bg-gray-200" />
         <div className="self-stretch inline-flex justify-end items-center gap-5">
@@ -147,10 +204,10 @@ export default function ProductsDetails() {
                 </div>
               </div>
             </button>
-            <button type="submit" className="px-3.5 py-2.5 bg-blue-700 rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(10,13,18,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(10,13,18,0.18)] outline outline-2 outline-offset-[-2px] outline-white/10 flex justify-center items-center gap-1 overflow-hidden">
+            <button type="submit" disabled={loading} className="px-3.5 py-2.5 bg-blue-700 rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(10,13,18,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(10,13,18,0.18)] outline outline-2 outline-offset-[-2px] outline-white/10 flex justify-center items-center gap-1 overflow-hidden disabled:opacity-50">
               <div className="px-0.5 flex justify-center items-center">
                 <div className="justify-start text-white text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
-                  Save changes
+                  {loading ? "Saving..." : "Save changes"}
                 </div>
               </div>
             </button>

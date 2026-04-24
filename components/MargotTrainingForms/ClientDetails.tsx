@@ -1,14 +1,67 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function ClientDetails() {
   const [niche, setNiche] = React.useState("");
   const [location, setLocation] = React.useState("");
   const [decisionMakers, setDecisionMakers] = React.useState("");
   const [targetCompanies, setTargetCompanies] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const [message, setMessage] = React.useState<{ type: "success" | "error"; text: string } | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Fetch existing client data on mount
+  useEffect(() => {
+    const fetchClientData = async () => {
+      try {
+        const response = await fetch("/api/margot/client", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        });
+
+        const data = await response.json();
+
+        if (data.ok && data.data) {
+          setNiche(data.data.niches?.join(", ") || "");
+          setLocation(data.data.location || "");
+          setDecisionMakers(data.data.decisionMakers?.join(", ") || "");
+          setTargetCompanies(data.data.targetCompanies?.join(", ") || "");
+        }
+      } catch (error) {
+        // Silently handle error
+      }
+    };
+
+    fetchClientData();
+  }, []);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ niche, location, decisionMakers, targetCompanies });
+    setLoading(true);
+    setMessage(null);
+
+    try {
+      const response = await fetch("/api/margot/client", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          niches: niche.split(",").map(n => n.trim()).filter(n => n),
+          location,
+          decisionMakers: decisionMakers.split(",").map(d => d.trim()).filter(d => d),
+          targetCompanies: targetCompanies.split(",").map(c => c.trim()).filter(c => c),
+        }),
+      });
+
+      const data = await response.json();
+
+      if (data.ok) {
+        setMessage({ type: "success", text: "Client details saved successfully!" });
+      } else {
+        setMessage({ type: "error", text: data.error || "Failed to save" });
+      }
+    } catch (error: any) {
+      setMessage({ type: "error", text: error.message || "Error saving client details" });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleReset = () => {
@@ -16,6 +69,7 @@ export default function ClientDetails() {
     setLocation("");
     setDecisionMakers("");
     setTargetCompanies("");
+    setMessage(null);
   };
 
   return (
@@ -35,7 +89,7 @@ export default function ClientDetails() {
             </div>
           </div>
           <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5">
-            Lorem ipsum dolor sit amet.
+            List the industries or market segments you want to target (e.g., healthcare, finance, tech).
           </div>
         </div>
         <div
@@ -53,7 +107,7 @@ export default function ClientDetails() {
             value={niche}
             onChange={(e) => setNiche(e.target.value)}
             placeholder="Enter niches"
-            className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
+            className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-900"
           />
         </div>
       </div>
@@ -91,7 +145,7 @@ export default function ClientDetails() {
             value={location}
             onChange={(e) => setLocation(e.target.value)}
             placeholder="Enter location"
-            className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
+            className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-900"
           />
         </div>
       </div>
@@ -129,7 +183,7 @@ export default function ClientDetails() {
             value={decisionMakers}
             onChange={(e) => setDecisionMakers(e.target.value)}
             placeholder="Enter decision makers"
-            className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
+            className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-900"
           />
         </div>
       </div>
@@ -168,12 +222,17 @@ export default function ClientDetails() {
             value={targetCompanies}
             onChange={(e) => setTargetCompanies(e.target.value)}
             placeholder="List companies"
-            className="self-stretch h-40 px-3.5 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 resize-y overflow-visible pr-2"
+            className="self-stretch h-40 px-3.5 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 resize-y overflow-visible pr-2 text-gray-900"
           />
         </div>
       </div>
 
       {/* divider + buttons */}
+      {message && (
+        <div className={`text-sm p-2 rounded ${message.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
+          {message.text}
+        </div>
+      )}
       <div className="self-stretch flex flex-col justify-start items-center gap-5">
         <div className="self-stretch h-px bg-gray-200" />
         <div className="self-stretch inline-flex justify-end items-center gap-5">
@@ -200,10 +259,10 @@ export default function ClientDetails() {
                 </div>
               </div>
             </button>
-            <button type="submit" className="px-3.5 py-2.5 bg-blue-700 rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(10,13,18,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(10,13,18,0.18)] outline outline-2 outline-offset-[-2px] outline-white/10 flex justify-center items-center gap-1 overflow-hidden">
+            <button type="submit" disabled={loading} className="px-3.5 py-2.5 bg-blue-700 rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(10,13,18,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(10,13,18,0.18)] outline outline-2 outline-offset-[-2px] outline-white/10 flex justify-center items-center gap-1 overflow-hidden disabled:opacity-50">
               <div className="px-0.5 flex justify-center items-center">
                 <div className="justify-start text-white text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
-                  Save changes
+                  {loading ? "Saving..." : "Save changes"}
                 </div>
               </div>
             </button>

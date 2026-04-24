@@ -51,7 +51,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                 </div>
               </div>
               <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5">
-                Lorem ipsum dolor sit amet.
+                Please enter the full legal name of your company.
               </div>
             </div>
             <div
@@ -90,7 +90,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                 </div>
               </div>
               <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Inter'] leading-5">
-                Lorem ipsum dolor sit amet.
+                Provide your company’s main website URL (e.g., https://yourcompany.com).
               </div>
             </div>
             <div className="flex-1 inline-flex flex-col justify-start items-start gap-1.5">
@@ -118,7 +118,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                 </div>
               </div>
               <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5">
-                Lorem ipsum dolor sit amet.
+                Briefly describe what your company does, its mission, or main activities.
               </div>
             </div>
             <textarea
@@ -144,7 +144,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                 </div>
               </div>
               <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5">
-                Lorem ipsum dolor sit amet.
+                (Optional) Upload a company presentation or brochure to help us understand your business better.
               </div>
             </div>
             <div className="flex-1 h-24 inline-flex flex-col justify-start items-start gap-4">
