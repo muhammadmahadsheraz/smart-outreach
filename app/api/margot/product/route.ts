@@ -1,5 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 
+const BACKEND_URL = process.env.BACKEND_URL || "http://localhost:4000";
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
@@ -14,7 +16,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const backendRes = await fetch("http://localhost:4000/api/product", {
+    const backendRes = await fetch(`${BACKEND_URL}/api/product`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -48,7 +50,7 @@ export async function GET(request: NextRequest) {
       );
     }
 
-    const backendRes = await fetch("http://localhost:4000/api/product", {
+    const backendRes = await fetch(`${BACKEND_URL}/api/product`, {
       method: "GET",
       headers: {
         "Authorization": `Bearer ${token}`,

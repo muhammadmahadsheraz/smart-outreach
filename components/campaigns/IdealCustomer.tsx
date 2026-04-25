@@ -156,7 +156,7 @@ export default function IdealCustomer({
     try {
       console.log("Searching prospects with:", { country, jobTags, industry, keywords, employees });
       
-      const response = await fetch("http://localhost:4000/api/prospects/search", {
+      const response = await fetch("/api/prospects/search", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
