@@ -197,23 +197,23 @@ export default function Campaigns() {
   const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE);
 
   return (
-    <div className="max-w-[1440px] mx-auto flex bg-slate-50 font-sans min-h-screen">
+    <div className="flex bg-slate-50 font-sans min-h-screen">
       <main className="flex w-full bg-white">
         <Sidebar />
 
         <section className="relative flex min-h-screen w-full flex-col items-center overflow-x-hidden">
           <MobileHeader />
 
-          <div className="w-full px-4 sm:px-6 lg:px-8 pb-12 flex flex-col gap-6">
+          <div className="w-full px-4 sm:px-6 lg:px-8 xl:px-12 pb-12 flex flex-col gap-4 sm:gap-6">
 
             {/* Hero */}
-            <div className="py-8 sm:py-12 flex flex-col items-center gap-4 text-center">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-blue-50 border-2 border-blue-100 flex items-center justify-center shadow-sm">
-                <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#1d4ed8" strokeWidth="1.8">
+            <div className="py-6 sm:py-8 lg:py-12 flex flex-col items-center gap-3 sm:gap-4 text-center">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full bg-blue-50 border-2 border-blue-100 flex items-center justify-center shadow-sm">
+                <svg width="24" height="24" className="sm:w-7 sm:h-7" fill="none" viewBox="0 0 24 24" stroke="#1d4ed8" strokeWidth="1.8">
                   <path strokeLinecap="round" strokeLinejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                 </svg>
               </div>
-              <p className="max-w-md text-gray-900 text-lg sm:text-xl font-semibold font-['Plus_Jakarta_Sans'] leading-7">
+              <p className="max-w-md text-gray-900 text-base sm:text-lg lg:text-xl font-semibold font-['Plus_Jakarta_Sans'] leading-6 sm:leading-7 px-4">
                 Hi! I'm going to find prospects interested in your business.
               </p>
             </div>
@@ -223,18 +223,18 @@ export default function Campaigns() {
 
             {/* Section header */}
             <div className="flex flex-col gap-1">
-              <h1 className="text-gray-900 text-xl sm:text-2xl font-semibold font-['Plus_Jakarta_Sans'] leading-8">
+              <h1 className="text-gray-900 text-lg sm:text-xl lg:text-2xl font-semibold font-['Plus_Jakarta_Sans'] leading-7 sm:leading-8">
                 Campaigns
               </h1>
-              <p className="text-gray-500 text-sm sm:text-base font-normal font-['Plus_Jakarta_Sans'] leading-6">
+              <p className="text-gray-500 text-xs sm:text-sm lg:text-base font-normal font-['Plus_Jakarta_Sans'] leading-5 sm:leading-6">
                 Here you can see all your active campaigns
               </p>
             </div>
 
             {/* Controls */}
-            <div className="flex flex-wrap gap-3 items-center justify-between">
+            <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center sm:justify-between">
               {/* Search */}
-              <div className="flex-1 min-w-[160px] max-w-xs">
+              <div className="w-full sm:flex-1 sm:min-w-[160px] sm:max-w-xs">
                 <div className="px-3 py-2 bg-white rounded-lg shadow-sm border border-zinc-300 flex items-center gap-2">
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="#9ca3af" strokeWidth="2">
                     <circle cx="11" cy="11" r="8" /><path strokeLinecap="round" d="M21 21l-4.35-4.35" />
@@ -254,7 +254,7 @@ export default function Campaigns() {
                 <select
                   value={statusFilter}
                   onChange={(e) => { setStatusFilter(e.target.value); setPage(1); }}
-                  className="px-3 py-2 bg-white rounded-lg border border-zinc-300 text-gray-700 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm cursor-pointer outline-none"
+                  className="flex-1 sm:flex-none px-3 py-2 bg-white rounded-lg border border-zinc-300 text-gray-700 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm cursor-pointer outline-none"
                 >
                   {["All", "Draft", "Active", "Paused"].map((s) => (
                     <option key={s} value={s}>{s === "All" ? "All statuses" : s}</option>
@@ -265,18 +265,18 @@ export default function Campaigns() {
                 <select
                   value={sortOrder}
                   onChange={(e) => setSortOrder(e.target.value)}
-                  className="px-3 py-2 bg-white rounded-lg border border-zinc-300 text-gray-700 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm cursor-pointer outline-none"
+                  className="flex-1 sm:flex-none px-3 py-2 bg-white rounded-lg border border-zinc-300 text-gray-700 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm cursor-pointer outline-none"
                 >
                   <option value="newest">Newest first</option>
                   <option value="oldest">Oldest first</option>
                 </select>
 
                 {/* Add new */}
-                <Link href="/campaigns/new" className="px-3.5 py-2 bg-blue-700 rounded-lg text-white text-sm font-semibold font-['Plus_Jakarta_Sans'] flex items-center gap-1.5 hover:bg-blue-800 transition-colors shadow-sm inline-flex">
+                <Link href="/campaigns/new" className="flex-1 sm:flex-none px-3.5 py-2 bg-blue-700 rounded-lg text-white text-sm font-semibold font-['Plus_Jakarta_Sans'] flex items-center justify-center gap-1.5 hover:bg-blue-800 transition-colors shadow-sm">
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth="2">
                     <path strokeLinecap="round" d="M12 5v14M5 12h14" />
                   </svg>
-                  Add new
+                  <span className="whitespace-nowrap">Add new</span>
                 </Link>
               </div>
             </div>
@@ -304,7 +304,7 @@ export default function Campaigns() {
               <table className="min-w-full bg-white text-left border-collapse">
                 <thead>
                   <tr className="bg-neutral-50 border-b border-gray-200">
-                    <th className="px-4 py-3 w-10">
+                    <th className="px-3 lg:px-4 py-3 w-10">
                       <input
                         type="checkbox"
                         className="w-4 h-4 rounded border-zinc-300 accent-blue-700 cursor-pointer"
@@ -316,7 +316,7 @@ export default function Campaigns() {
                     {["Name", "Status", "Progress", "Sent", "Clicks", "Replied", "Opportunities", "", ""].map((h, i) => (
                       <th
                         key={i}
-                        className="px-4 py-3 text-gray-500 text-xs font-semibold font-['Plus_Jakarta_Sans'] uppercase tracking-wide whitespace-nowrap"
+                        className="px-2 lg:px-4 py-3 text-gray-500 text-[10px] sm:text-xs font-semibold font-['Plus_Jakarta_Sans'] uppercase tracking-wide whitespace-nowrap"
                       >
                         {h}
                       </th>
@@ -345,7 +345,7 @@ export default function Campaigns() {
                         }`}
                       >
                         {/* Checkbox */}
-                        <td className="px-4 py-4">
+                        <td className="px-3 lg:px-4 py-3 lg:py-4">
                           <input
                             type="checkbox"
                             checked={selected.has(i)}
@@ -355,52 +355,52 @@ export default function Campaigns() {
                         </td>
 
                         {/* Name */}
-                        <td className="px-4 py-4 text-gray-800 text-sm font-medium font-['Plus_Jakarta_Sans'] whitespace-nowrap">
+                        <td className="px-2 lg:px-4 py-3 lg:py-4 text-gray-800 text-xs sm:text-sm font-medium font-['Plus_Jakarta_Sans'] whitespace-nowrap">
                           {c.name}
                         </td>
 
                         {/* Status */}
-                        <td className="px-4 py-4">
+                        <td className="px-2 lg:px-4 py-3 lg:py-4">
                           <StatusBadge label={c.status} />
                         </td>
 
                         {/* Progress */}
-                        <td className="px-4 py-4 min-w-[130px]">
+                        <td className="px-2 lg:px-4 py-3 lg:py-4 min-w-[100px] lg:min-w-[130px]">
                           <ProgressBar pct={c.progress} />
                         </td>
 
                         {/* Sent */}
-                        <td className="px-4 py-4 text-gray-600 text-sm font-['Plus_Jakarta_Sans']">{c.sent}</td>
+                        <td className="px-2 lg:px-4 py-3 lg:py-4 text-gray-600 text-xs sm:text-sm font-['Plus_Jakarta_Sans']">{c.sent}</td>
 
                         {/* Clicks */}
-                        <td className="px-4 py-4 text-gray-600 text-sm font-['Plus_Jakarta_Sans']">{c.click}</td>
+                        <td className="px-2 lg:px-4 py-3 lg:py-4 text-gray-600 text-xs sm:text-sm font-['Plus_Jakarta_Sans']">{c.click}</td>
 
                         {/* Replied */}
-                        <td className="px-4 py-4">
-                          <div className="flex items-center gap-2">
-                            <span className="text-gray-600 text-sm font-['Plus_Jakarta_Sans']">{c.replied}</span>
-                            <span className="px-2 py-0.5 bg-amber-50 rounded-2xl outline outline-1 outline-offset-[-1px] outline-amber-200 text-amber-700 text-xs font-medium font-['Inter']">
+                        <td className="px-2 lg:px-4 py-3 lg:py-4">
+                          <div className="flex items-center gap-1.5 lg:gap-2">
+                            <span className="text-gray-600 text-xs sm:text-sm font-['Plus_Jakarta_Sans']">{c.replied}</span>
+                            <span className="px-1.5 lg:px-2 py-0.5 bg-amber-50 rounded-2xl outline outline-1 outline-offset-[-1px] outline-amber-200 text-amber-700 text-[10px] sm:text-xs font-medium font-['Inter']">
                               {c.replyPct}
                             </span>
                           </div>
                         </td>
 
                         {/* Opportunities */}
-                        <td className="px-4 py-4 text-gray-600 text-sm font-['Plus_Jakarta_Sans']">{c.opportunities}</td>
+                        <td className="px-2 lg:px-4 py-3 lg:py-4 text-gray-600 text-xs sm:text-sm font-['Plus_Jakarta_Sans']">{c.opportunities}</td>
 
                         {/* Edit */}
-                        <td className="px-3 py-4">
-                          <button className="p-1.5 rounded-md text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit">
-                            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <td className="px-2 lg:px-3 py-3 lg:py-4">
+                          <button className="p-1 lg:p-1.5 rounded-md text-gray-400 hover:text-blue-600 hover:bg-blue-50 transition-colors" title="Edit">
+                            <svg width="14" height="14" className="lg:w-4 lg:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                               <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536M9 13l6.768-6.768a2 2 0 112.828 2.828L11.828 15.828 8 17l1.172-3.828z" />
                             </svg>
                           </button>
                         </td>
 
                         {/* More */}
-                        <td className="px-3 py-4">
-                          <button className="p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors" title="More options">
-                            <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                        <td className="px-2 lg:px-3 py-3 lg:py-4">
+                          <button className="p-1 lg:p-1.5 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors" title="More options">
+                            <svg width="14" height="14" className="lg:w-4 lg:h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                               <circle cx="12" cy="5" r="1" fill="currentColor" /><circle cx="12" cy="12" r="1" fill="currentColor" /><circle cx="12" cy="19" r="1" fill="currentColor" />
                             </svg>
                           </button>
@@ -412,22 +412,22 @@ export default function Campaigns() {
               </table>
 
               {/* Pagination */}
-              <div className="px-6 py-3 flex flex-wrap justify-between items-center gap-3 border-t border-gray-100">
-                <span className="text-gray-600 text-sm font-medium font-['Plus_Jakarta_Sans']">
+              <div className="px-4 lg:px-6 py-3 flex flex-wrap justify-between items-center gap-3 border-t border-gray-100">
+                <span className="text-gray-600 text-xs sm:text-sm font-medium font-['Plus_Jakarta_Sans']">
                   Page {page} of {totalPages || 1}
                 </span>
                 <div className="flex items-center gap-2">
                   <button
                     disabled={page === 1}
                     onClick={() => setPage(page - 1)}
-                    className="px-3 py-2 bg-white rounded-lg border border-gray-200 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="px-2.5 lg:px-3 py-1.5 lg:py-2 bg-white rounded-lg border border-gray-200 text-xs sm:text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700 hover:bg-gray-50 transition-colors"
                   >
                     Previous
                   </button>
                   <button
                     disabled={page >= totalPages}
                     onClick={() => setPage(page + 1)}
-                    className="px-3 py-2 bg-white rounded-lg border border-zinc-300 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="px-2.5 lg:px-3 py-1.5 lg:py-2 bg-white rounded-lg border border-zinc-300 text-xs sm:text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700 hover:bg-gray-50 transition-colors"
                   >
                     Next
                   </button>
@@ -437,21 +437,21 @@ export default function Campaigns() {
 
             {/* Mobile pagination */}
             <div className="flex md:hidden items-center justify-between pt-2">
-              <span className="text-gray-600 text-sm font-medium font-['Plus_Jakarta_Sans']">
+              <span className="text-gray-600 text-xs sm:text-sm font-medium font-['Plus_Jakarta_Sans']">
                 Page {page} of {totalPages || 1}
               </span>
               <div className="flex items-center gap-2">
                 <button
                   disabled={page === 1}
                   onClick={() => setPage(page - 1)}
-                  className="px-3 py-2 bg-white rounded-lg border border-gray-200 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700"
+                  className="px-2.5 sm:px-3 py-1.5 sm:py-2 bg-white rounded-lg border border-gray-200 text-xs sm:text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700"
                 >
                   Previous
                 </button>
                 <button
                   disabled={page >= totalPages}
                   onClick={() => setPage(page + 1)}
-                  className="px-3 py-2 bg-white rounded-lg border border-zinc-300 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700"
+                  className="px-2.5 sm:px-3 py-1.5 sm:py-2 bg-white rounded-lg border border-zinc-300 text-xs sm:text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700"
                 >
                   Next
                 </button>

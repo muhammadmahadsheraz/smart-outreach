@@ -63,11 +63,11 @@ export function LoginForm() {
 
   return (
     <>
-      <form className="mt-6 grid grid-cols-1 gap-4" onSubmit={handleSubmit}>
-        <div className="space-y-1">
+      <form className="mt-4 sm:mt-6 grid grid-cols-1 gap-3 sm:gap-4" onSubmit={handleSubmit}>
+        <div className="space-y-1.5">
           <label
             htmlFor="email"
-            className="text-sm font-medium leading-5 text-[#414651]"
+            className="block text-sm font-medium leading-5 text-[#414651]"
           >
             Email
           </label>
@@ -80,10 +80,10 @@ export function LoginForm() {
           />
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-1.5">
           <label
             htmlFor="password"
-            className="text-sm font-medium leading-5 text-[#414651]"
+            className="block text-sm font-medium leading-5 text-[#414651]"
           >
             Password
           </label>
@@ -96,10 +96,10 @@ export function LoginForm() {
           />
         </div>
 
-        <div className="mt-6 space-y-3">
+        <div className="mt-4 sm:mt-6 space-y-3">
           <button
             type="submit"
-            className="inline-flex w-full items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/40 transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            className="inline-flex w-full items-center justify-center rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-indigo-500/40 transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? "Logging in..." : "Log in"}

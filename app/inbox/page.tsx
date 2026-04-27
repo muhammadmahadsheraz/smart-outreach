@@ -255,16 +255,16 @@ export default function InboxPage() {
               <div className="flex-1 flex flex-col min-h-0">
                 {/* Header */}
                 <div className="w-full bg-white border-b border-gray-100 flex-shrink-0">
-                  <div className="p-4 flex flex-col gap-3">
+                  <div className="p-3 sm:p-4 flex flex-col gap-2 sm:gap-3">
                     <div className="flex items-center justify-between gap-2 overflow-hidden">
                       <div className="flex items-center gap-2 min-w-0">
-                        <h1 className="text-gray-900 text-lg font-semibold truncate shrink-0">
+                        <h1 className="text-gray-900 text-base sm:text-lg font-semibold truncate shrink-0">
                           Inbox
                         </h1>
                         {gmailConnected && gmailEmail && (
-                          <div className="flex items-center gap-1.5 px-2 py-0.5 bg-emerald-50 rounded-full border border-emerald-200 min-w-0 overflow-hidden">
+                          <div className="flex items-center gap-1.5 px-1.5 sm:px-2 py-0.5 bg-emerald-50 rounded-full border border-emerald-200 min-w-0 overflow-hidden">
                             <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full shrink-0" />
-                            <span className="text-[10px] text-emerald-700 font-medium truncate">{gmailEmail}</span>
+                            <span className="text-[9px] sm:text-[10px] text-emerald-700 font-medium truncate">{gmailEmail}</span>
                           </div>
                         )}
                       </div>
@@ -276,13 +276,13 @@ export default function InboxPage() {
                           <button
                             onClick={handleSyncMail}
                             disabled={syncing}
-                            className="flex-1 px-3 py-1.5 bg-blue-600 text-white rounded-lg font-semibold text-xs hover:bg-blue-700 disabled:opacity-50 transition-colors whitespace-nowrap"
+                            className="flex-1 px-2.5 sm:px-3 py-1.5 bg-blue-600 text-white rounded-lg font-semibold text-[11px] sm:text-xs hover:bg-blue-700 disabled:opacity-50 transition-colors whitespace-nowrap"
                           >
                             {syncing ? "Syncing..." : "Sync Mail"}
                           </button>
                           <button
                             onClick={handleDisconnectGmail}
-                            className="px-2 py-1.5 bg-white text-gray-600 rounded-lg font-medium text-xs border border-gray-300 hover:bg-gray-50 transition-colors whitespace-nowrap"
+                            className="px-2 py-1.5 bg-white text-gray-600 rounded-lg font-medium text-[11px] sm:text-xs border border-gray-300 hover:bg-gray-50 transition-colors whitespace-nowrap"
                             title="Disconnect Gmail"
                           >
                             Disconnect
@@ -292,9 +292,9 @@ export default function InboxPage() {
                         <button
                           onClick={handleConnectGmail}
                           disabled={connecting}
-                          className="w-full px-4 py-2 bg-blue-600 text-white rounded-lg font-semibold text-sm hover:bg-blue-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-2 shadow-sm"
+                          className="w-full px-3 sm:px-4 py-1.5 sm:py-2 bg-blue-600 text-white rounded-lg font-semibold text-xs sm:text-sm hover:bg-blue-700 disabled:opacity-50 transition-colors flex items-center justify-center gap-1.5 sm:gap-2 shadow-sm"
                         >
-                          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                          <svg width="12" height="12" className="sm:w-[14px] sm:h-[14px]" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z" />
                             <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
                             <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" />
@@ -308,11 +308,11 @@ export default function InboxPage() {
                 </div>
 
                 {/* Tabs */}
-                <div className="w-full px-4 pb-3 flex flex-col shrink-0">
+                <div className="w-full px-3 sm:px-4 pb-2 sm:pb-3 flex flex-col shrink-0">
                   <div className="w-full bg-neutral-50 rounded-lg border border-gray-200 flex p-0.5">
                     <button
                       onClick={() => setActiveTab("primary")}
-                      className={`flex-1 h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden font-semibold text-sm leading-5 transition-colors ${
+                      className={`flex-1 h-8 sm:h-9 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden font-semibold text-xs sm:text-sm leading-5 transition-colors ${
                         activeTab === "primary"
                           ? "bg-white shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-700"
                           : "text-gray-500 hover:text-gray-600"
@@ -322,7 +322,7 @@ export default function InboxPage() {
                     </button>
                     <button
                       onClick={() => setActiveTab("others")}
-                      className={`flex-1 h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden font-semibold text-sm leading-5 transition-colors ${
+                      className={`flex-1 h-8 sm:h-9 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden font-semibold text-xs sm:text-sm leading-5 transition-colors ${
                         activeTab === "others"
                           ? "bg-white shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-700"
                           : "text-gray-500 hover:text-gray-600"
@@ -334,7 +334,7 @@ export default function InboxPage() {
                 </div>
 
                 {/* Search and Filter */}
-                <div className="w-full px-4 pb-3 flex items-center gap-2 shrink-0">
+                <div className="w-full px-3 sm:px-4 pb-2 sm:pb-3 flex items-center gap-2 shrink-0">
                   <div className="flex-1 relative">
                     <input
                       type="text"
@@ -346,14 +346,14 @@ export default function InboxPage() {
                           setSearchQuery(searchInput);
                         }
                       }}
-                      className="w-full px-3 py-2 bg-white rounded-lg border border-gray-300 shadow-sm text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
+                      className="w-full px-2.5 sm:px-3 py-1.5 sm:py-2 bg-white rounded-lg border border-gray-300 shadow-sm text-xs sm:text-sm outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
                     />
                   </div>
                   <button 
                     onClick={() => setSearchQuery(searchInput)}
-                    className="p-2 bg-white rounded-lg border border-gray-300 hover:bg-gray-50 flex justify-center items-center shrink-0 transition-colors active:bg-gray-100"
+                    className="p-1.5 sm:p-2 bg-white rounded-lg border border-gray-300 hover:bg-gray-50 flex justify-center items-center shrink-0 transition-colors active:bg-gray-100"
                   >
-                    <img src="/icons/filter_icon.svg" alt="Filter" className="w-5 h-5" />
+                    <img src="/icons/filter_icon.svg" alt="Filter" className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                 </div>
 
@@ -455,46 +455,46 @@ export default function InboxPage() {
                 </div>
 
                 {/* Email Header */}
-                <div className="flex-shrink-0 self-stretch bg-white border-b border-gray-200 flex flex-col justify-start items-start gap-5">
-                  <div className="self-stretch px-6 pt-5 inline-flex justify-start items-start gap-4">
-                    <div className="flex-1 flex justify-start items-center gap-3">
-                      <div className="w-14 h-14 relative bg-neutral-100 rounded-[200px]">
-                        <div className="w-14 h-14 left-0 top-0 absolute opacity-10 rounded-[200px] border-[0.75px] border-black" />
-                        <div className="w-12 left-[4px] top-[14px] absolute text-center justify-start text-gray-600 text-lg font-semibold font-['Inter'] leading-7">
+                <div className="flex-shrink-0 self-stretch bg-white border-b border-gray-200 flex flex-col justify-start items-start gap-3 sm:gap-5">
+                  <div className="self-stretch px-3 sm:px-6 pt-3 sm:pt-5 inline-flex justify-start items-start gap-3 sm:gap-4 flex-col sm:flex-row">
+                    <div className="flex-1 flex justify-start items-center gap-2 sm:gap-3 w-full">
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 relative bg-neutral-100 rounded-[200px] flex-shrink-0">
+                        <div className="w-full h-full left-0 top-0 absolute opacity-10 rounded-[200px] border-[0.75px] border-black" />
+                        <div className="absolute inset-0 flex items-center justify-center text-gray-600 text-base sm:text-lg font-semibold font-['Inter']">
                           {selectedEmail.senderName
                             .split(" ")
                             .map((n) => n[0])
                             .join("")}
                         </div>
                       </div>
-                      <div className="flex-1 inline-flex flex-col justify-start items-start">
+                      <div className="flex-1 inline-flex flex-col justify-start items-start min-w-0">
                         <div className="self-stretch inline-flex justify-start items-center gap-2">
-                          <div className="justify-start text-gray-900 text-lg font-semibold font-['Plus_Jakarta_Sans'] leading-7">
+                          <div className="justify-start text-gray-900 text-base sm:text-lg font-semibold font-['Plus_Jakarta_Sans'] leading-6 sm:leading-7 truncate">
                             {selectedEmail.senderEmail}
                           </div>
                         </div>
-                        <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5 line-clamp-1">
+                        <div className="self-stretch justify-start text-gray-600 text-xs sm:text-sm font-normal font-['Plus_Jakarta_Sans'] leading-4 sm:leading-5 line-clamp-1">
                           {selectedEmail.senderName}
                         </div>
                       </div>
                     </div>
-                    <div className="flex justify-start items-center gap-3">
-                      <div className="relative">
+                    <div className="flex justify-start items-center gap-2 sm:gap-3 w-full sm:w-auto overflow-x-auto">
+                      <div className="relative flex-1 sm:flex-none">
                         <button
                           onClick={() => setDropdownOpen(!dropdownOpen)}
-                          className="w-48 px-3 py-2 bg-white rounded-lg shadow-sm border border-gray-300 flex items-center justify-between hover:bg-gray-50 transition-colors"
+                          className="w-full sm:w-48 px-2.5 sm:px-3 py-1.5 sm:py-2 bg-white rounded-lg shadow-sm border border-gray-300 flex items-center justify-between hover:bg-gray-50 transition-colors"
                         >
-                          <div className="flex items-center gap-2 overflow-hidden">
+                          <div className="flex items-center gap-1.5 sm:gap-2 overflow-hidden">
                             {selectedTag ? (
                               <>
-                                <img src={selectedTag.icon} alt="" className="w-5 h-5 shrink-0" />
-                                <span className="text-gray-900 text-sm font-semibold truncate">{selectedTag.name}</span>
+                                <img src={selectedTag.icon} alt="" className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                                <span className="text-gray-900 text-xs sm:text-sm font-semibold truncate">{selectedTag.name}</span>
                               </>
                             ) : (
-                              <span className="text-gray-400 text-sm">Select Status</span>
+                              <span className="text-gray-400 text-xs sm:text-sm">Select Status</span>
                             )}
                           </div>
-                          <div className="w-5 h-5 shrink-0 flex items-center justify-center">
+                          <div className="w-4 h-4 sm:w-5 sm:h-5 shrink-0 flex items-center justify-center">
                             <svg width="10" height="6" viewBox="0 0 10 6" fill="none">
                               <path d="M1 1L5 5L9 1" stroke="#667085" strokeWidth="1.67" strokeLinecap="round" strokeLinejoin="round"/>
                             </svg>
@@ -503,7 +503,7 @@ export default function InboxPage() {
 
                         {/* Dropdown Menu */}
                         {dropdownOpen && (
-                          <div className="absolute top-full right-0 w-48 mt-1 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
+                          <div className="absolute top-full right-0 w-full sm:w-48 mt-1 bg-white rounded-lg shadow-xl border border-gray-200 z-50 overflow-hidden">
                             {tagOptions.map((tag) => (
                               <button
                                 key={tag.name}
@@ -534,10 +534,10 @@ export default function InboxPage() {
                                     console.error("Error updating tag:", error);
                                   }
                                 }}
-                                className="w-full px-4 py-2.5 flex items-center gap-3 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-b-0"
+                                className="w-full px-3 sm:px-4 py-2 sm:py-2.5 flex items-center gap-2 sm:gap-3 hover:bg-gray-50 transition-colors border-b border-gray-50 last:border-b-0"
                               >
-                                <img src={tag.icon} alt="" className="w-5 h-5 shrink-0" />
-                                <span className={`${selectedTag?.name === tag.name ? 'text-blue-700 font-semibold' : 'text-gray-700'} text-sm`}>
+                                <img src={tag.icon} alt="" className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                                <span className={`${selectedTag?.name === tag.name ? 'text-blue-700 font-semibold' : 'text-gray-700'} text-xs sm:text-sm`}>
                                   {tag.name}
                                 </span>
                               </button>
@@ -545,13 +545,13 @@ export default function InboxPage() {
                           </div>
                         )}
                       </div>
-                      <button className="px-3.5 py-2.5 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(10,13,18,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(10,13,18,0.18)] outline outline-1 outline-offset-[-1px] outline-zinc-300 flex justify-center items-center gap-1 overflow-hidden hover:bg-gray-50 transition-colors">
-                        <div className="justify-start text-gray-700 text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
+                      <button className="hidden sm:flex px-3 sm:px-3.5 py-2 sm:py-2.5 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] shadow-[inset_0px_-2px_0px_0px_rgba(10,13,18,0.05)] shadow-[inset_0px_0px_0px_1px_rgba(10,13,18,0.18)] outline outline-1 outline-offset-[-1px] outline-zinc-300 justify-center items-center gap-1 overflow-hidden hover:bg-gray-50 transition-colors">
+                        <div className="justify-start text-gray-700 text-xs sm:text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
                           Archive
                         </div>
                       </button>
-                      <button className="p-2 bg-white rounded-lg border border-gray-300 flex justify-center items-center hover:bg-gray-50 transition-colors">
-                        <img src="/icons/dots_icon.svg" alt="More" className="w-5 h-5" />
+                      <button className="p-1.5 sm:p-2 bg-white rounded-lg border border-gray-300 flex justify-center items-center hover:bg-gray-50 transition-colors">
+                        <img src="/icons/dots_icon.svg" alt="More" className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     </div>
                   </div>

@@ -158,85 +158,85 @@ export default function ReportsPage() {
   });
 
   return (
-    <div className="max-w-[1440px] mx-auto flex bg-slate-50 font-sans">
+    <div className="flex bg-slate-50 font-sans min-h-screen">
       <Sidebar />
       <main className="flex w-full flex-col bg-white overflow-x-hidden">
         <MobileHeader />
-        <section className="relative flex flex-col items-center pb-12 gap-9 overflow-x-hidden px-4 md:px-0">
-          <div className="self-stretch pb-12 inline-flex flex-col justify-start items-center">
+        <section className="relative flex flex-col items-center pb-8 sm:pb-12 gap-6 sm:gap-9 overflow-x-hidden px-4 sm:px-6 lg:px-8">
+          <div className="self-stretch pb-8 sm:pb-12 inline-flex flex-col justify-start items-center">
             
-            <div className="self-stretch px-16 py-10 flex flex-col justify-center items-center gap-5">
-              <div className="w-16 h-16 relative rounded-[200px] bg-blue-600 flex items-center justify-center text-white text-2xl font-bold">S</div>
-              <div className="self-stretch text-center text-gray-900 text-2xl font-semibold font-['Plus_Jakarta_Sans'] leading-8">Here is the report of your campaigns.</div>
+            <div className="self-stretch px-4 sm:px-8 lg:px-16 py-6 sm:py-8 lg:py-10 flex flex-col justify-center items-center gap-4 sm:gap-5">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 relative rounded-[200px] bg-blue-600 flex items-center justify-center text-white text-lg sm:text-xl lg:text-2xl font-bold">S</div>
+              <div className="self-stretch text-center text-gray-900 text-lg sm:text-xl lg:text-2xl font-semibold font-['Plus_Jakarta_Sans'] leading-7 sm:leading-8 px-4">Here is the report of your campaigns.</div>
             </div>
 
-            <div className="self-stretch flex flex-col justify-start items-start gap-9 px-8">
+            <div className="self-stretch flex flex-col justify-start items-start gap-6 sm:gap-9 px-4 sm:px-6 lg:px-8">
               <div className="self-stretch h-px bg-blue-300" />
 
               {/* REPORTS HEADER SECTION */}
-              <div className="self-stretch inline-flex justify-start items-start gap-4 flex-wrap content-start">
-                  <div className="flex-1 min-w-80 inline-flex flex-col justify-start items-start gap-1">
-                      <div className="self-stretch justify-start text-gray-900 text-2xl font-semibold font-['Plus_Jakarta_Sans'] leading-8">Reports</div>
-                      <div className="self-stretch justify-start text-gray-600 text-base font-normal font-['Plus_Jakarta_Sans'] leading-6">Check your campaign performance at a glance.</div>
+              <div className="self-stretch inline-flex justify-start items-start gap-3 sm:gap-4 flex-wrap content-start">
+                  <div className="flex-1 min-w-[250px] inline-flex flex-col justify-start items-start gap-1">
+                      <div className="self-stretch justify-start text-gray-900 text-lg sm:text-xl lg:text-2xl font-semibold font-['Plus_Jakarta_Sans'] leading-7 sm:leading-8">Reports</div>
+                      <div className="self-stretch justify-start text-gray-600 text-sm sm:text-base font-normal font-['Plus_Jakarta_Sans'] leading-5 sm:leading-6">Check your campaign performance at a glance.</div>
                   </div>
-                  <div className="flex justify-start items-center gap-3">
-                      <div className="px-3.5 py-2.5 bg-white rounded-lg shadow-sm border border-zinc-300 flex justify-center items-center gap-1 cursor-pointer hover:bg-gray-50">
-                          <div className="px-0.5 text-gray-700 text-sm font-semibold">Share</div>
-                          <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor"><path d="M12 4L7 9L2 4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                  <div className="flex justify-start items-center gap-2 flex-wrap">
+                      <div className="px-2.5 sm:px-3.5 py-2 sm:py-2.5 bg-white rounded-lg shadow-sm border border-zinc-300 flex justify-center items-center gap-1 cursor-pointer hover:bg-gray-50">
+                          <div className="px-0.5 text-gray-700 text-xs sm:text-sm font-semibold">Share</div>
+                          <svg width="12" height="12" className="sm:w-[14px] sm:h-[14px]" viewBox="0 0 14 14" fill="none" stroke="currentColor"><path d="M12 4L7 9L2 4" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/></svg>
                       </div>
-                      <div className="px-3.5 py-2.5 bg-white rounded-lg shadow-sm border border-zinc-300 flex justify-center items-center gap-1 cursor-pointer hover:bg-gray-50">
-                          <div className="px-0.5 text-gray-700 text-sm font-semibold">Filter</div>
-                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor"><path d="M2.5 4.5H9.5M4 7.5H8" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                      <div className="px-2.5 sm:px-3.5 py-2 sm:py-2.5 bg-white rounded-lg shadow-sm border border-zinc-300 flex justify-center items-center gap-1 cursor-pointer hover:bg-gray-50">
+                          <div className="px-0.5 text-gray-700 text-xs sm:text-sm font-semibold">Filter</div>
+                          <svg width="10" height="10" className="sm:w-[12px] sm:h-[12px]" viewBox="0 0 12 12" fill="none" stroke="currentColor"><path d="M2.5 4.5H9.5M4 7.5H8" strokeWidth="1.5" strokeLinecap="round"/></svg>
                       </div>
-                      <div className="px-3.5 py-2.5 bg-white rounded-lg shadow-sm border border-zinc-300 flex justify-center items-center gap-1 cursor-pointer hover:bg-gray-50">
-                          <div className="px-0.5 text-gray-700 text-sm font-semibold">Month to date</div>
-                          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor"><path d="M2.5 4.5H9.5M4 7.5H8" strokeWidth="1.5" strokeLinecap="round"/></svg>
+                      <div className="px-2.5 sm:px-3.5 py-2 sm:py-2.5 bg-white rounded-lg shadow-sm border border-zinc-300 flex justify-center items-center gap-1 cursor-pointer hover:bg-gray-50">
+                          <div className="px-0.5 text-gray-700 text-xs sm:text-sm font-semibold whitespace-nowrap">Month to date</div>
+                          <svg width="10" height="10" className="sm:w-[12px] sm:h-[12px]" viewBox="0 0 12 12" fill="none" stroke="currentColor"><path d="M2.5 4.5H9.5M4 7.5H8" strokeWidth="1.5" strokeLinecap="round"/></svg>
                       </div>
                   </div>
               </div>
 
               {/* STAT CARDS */}
-              <div className="self-stretch inline-flex justify-start items-start gap-5 flex-wrap content-start">
+              <div className="self-stretch grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
                 {[
                   { label: "Total sent", val: stats?.totalSent, rate: "Delivered", color: "blue" },
                   { label: "Open rate", val: calculateRate(stats?.totalOpened || 0, stats?.totalSent || 0), rate: "Read rate", color: "gray" },
                   { label: "Click rate", val: calculateRate(stats?.totalClicks || 0, stats?.totalSent || 0), rate: "Engagement", color: "gray" },
                   { label: "Reply rate", val: calculateRate(stats?.totalReplied || 0, stats?.totalSent || 0), rate: "Response", color: "gray" }
                 ].map((stat, i) => (
-                  <div key={i} className={`flex-1 min-w-[200px] p-5 bg-white rounded-xl shadow-sm border ${stat.color === 'blue' ? 'border-blue-600 border-2' : 'border-gray-200'} inline-flex flex-col gap-5`}>
-                    <div className="text-gray-900 text-base font-semibold">{stat.label}</div>
-                    <div className="flex flex-col gap-3">
-                      <div className="text-gray-900 text-3xl font-semibold">{loading ? "..." : stat.val}</div>
-                      {stat.rate && <div className="text-emerald-700 text-sm font-medium">{stat.rate}</div>}
+                  <div key={i} className={`p-4 sm:p-5 bg-white rounded-xl shadow-sm border ${stat.color === 'blue' ? 'border-blue-600 border-2' : 'border-gray-200'} inline-flex flex-col gap-4 sm:gap-5`}>
+                    <div className="text-gray-900 text-sm sm:text-base font-semibold">{stat.label}</div>
+                    <div className="flex flex-col gap-2 sm:gap-3">
+                      <div className="text-gray-900 text-2xl sm:text-3xl font-semibold">{loading ? "..." : stat.val}</div>
+                      {stat.rate && <div className="text-emerald-700 text-xs sm:text-sm font-medium">{stat.rate}</div>}
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* SELECTOR PANEL */}
-              <div className="self-stretch flex flex-col justify-start items-start gap-8">
-                <div className="self-stretch inline-flex justify-start items-start gap-4 flex-wrap">
-                  <div className="flex-1 inline-flex flex-col justify-start items-start gap-2 relative">
+              <div className="self-stretch flex flex-col justify-start items-start gap-6 sm:gap-8">
+                <div className="self-stretch flex flex-col sm:flex-row justify-start items-start gap-4 flex-wrap">
+                  <div className="flex-1 min-w-[250px] inline-flex flex-col justify-start items-start gap-2 relative">
                     <div className="inline-flex justify-center items-center gap-1 overflow-hidden cursor-pointer group"
                          onClick={() => setIsDropdownOpen(!isDropdownOpen)}>
-                        <div className="justify-start text-gray-600 text-sm font-semibold group-hover:text-blue-600 transition-colors">Select campaign</div>
-                        <div className={`w-4 h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}>
+                        <div className="justify-start text-gray-600 text-xs sm:text-sm font-semibold group-hover:text-blue-600 transition-colors">Select campaign</div>
+                        <div className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`}>
                           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className="text-gray-400 group-hover:text-blue-600"><path d="M6 9l6 6 6-6" /></svg>
                         </div>
                     </div>
-                    <div className="self-stretch inline-flex justify-start items-center gap-3">
-                        <div className="justify-start text-gray-900 text-3xl font-semibold leading-9">{selectedCampaignName}</div>
+                    <div className="self-stretch inline-flex justify-start items-center gap-2 sm:gap-3 flex-wrap">
+                        <div className="justify-start text-gray-900 text-xl sm:text-2xl lg:text-3xl font-semibold leading-7 sm:leading-9">{selectedCampaignName}</div>
                         <div className="pl-1.5 pr-2 py-0.5 bg-white rounded-md shadow-sm border border-zinc-300 flex justify-start items-center gap-1">
                             <div className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                            <div className="text-gray-700 text-sm font-medium">Live stats</div>
+                            <div className="text-gray-700 text-xs sm:text-sm font-medium whitespace-nowrap">Live stats</div>
                         </div>
                     </div>
                     {isDropdownOpen && (
-                        <div className="absolute top-12 left-0 w-80 bg-white border border-gray-200 rounded-xl shadow-2xl z-50 overflow-hidden ring-4 ring-black ring-opacity-5">
+                        <div className="absolute top-12 left-0 w-full sm:w-80 bg-white border border-gray-200 rounded-xl shadow-2xl z-50 overflow-hidden ring-4 ring-black ring-opacity-5">
                           <div className="p-2">
-                             <button onClick={() => { setSelectedCampaignId("all"); setIsDropdownOpen(false); }} className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all ${selectedCampaignId === "all" ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-50'}`}>All Campaigns</button>
+                             <button onClick={() => { setSelectedCampaignId("all"); setIsDropdownOpen(false); }} className={`w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-medium transition-all ${selectedCampaignId === "all" ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-50'}`}>All Campaigns</button>
                              {campaigns.map((camp) => (
-                               <button key={camp._id} onClick={() => { setSelectedCampaignId(camp._id); setIsDropdownOpen(false); }} className={`w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all ${selectedCampaignId === camp._id ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`}>{camp.name}</button>
+                               <button key={camp._id} onClick={() => { setSelectedCampaignId(camp._id); setIsDropdownOpen(false); }} className={`w-full text-left px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg text-xs sm:text-sm font-medium transition-all ${selectedCampaignId === camp._id ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-gray-100'}`}>{camp.name}</button>
                              ))}
                           </div>
                         </div>
@@ -244,15 +244,15 @@ export default function ReportsPage() {
                   </div>
 
                   {/* Time Range Tabs */}
-                  <div className="flex justify-start items-start gap-3">
-                      <div className="bg-neutral-50 rounded-lg border border-gray-200 flex justify-start items-center gap-0.5 overflow-hidden">
+                  <div className="w-full sm:w-auto flex justify-start items-start gap-2 sm:gap-3 overflow-x-auto">
+                      <div className="bg-neutral-50 rounded-lg border border-gray-200 flex justify-start items-center gap-0.5 p-0.5 overflow-hidden">
                           {["12 months", "30 days", "7 days", "24 hours"].map((range) => (
                             <button 
                               key={range}
                               onClick={() => setSelectedRange(range)}
-                              className={`h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 transition-all ${selectedRange === range ? 'bg-white shadow-sm border border-zinc-300 text-gray-700' : 'text-gray-500 hover:text-gray-700'}`}
+                              className={`h-8 sm:h-9 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg flex justify-center items-center gap-2 transition-all flex-shrink-0 ${selectedRange === range ? 'bg-white shadow-sm border border-zinc-300 text-gray-700' : 'text-gray-500 hover:text-gray-700'}`}
                             >
-                                <div className="text-sm font-semibold whitespace-nowrap">{range}</div>
+                                <div className="text-[11px] sm:text-sm font-semibold whitespace-nowrap">{range}</div>
                             </button>
                           ))}
                       </div>

@@ -66,11 +66,11 @@ export default function HomePage() {
   ];
 
   return (
-    <div className="max-w-[1440px] mx-auto flex bg-slate-50 font-sans">
+    <div className="flex bg-slate-50 font-sans min-h-screen">
       <main className="flex w-full bg-white">
         <Sidebar />
 
-        <section className="relative flex min-h-screen w-full flex-col items-center pb-12 gap-9 overflow-x-hidden">
+        <section className="relative flex min-h-screen w-full flex-col items-center pb-8 sm:pb-12 gap-6 sm:gap-9 overflow-x-hidden">
           {/* Mobile header */}
           <MobileHeader />
           
@@ -101,8 +101,8 @@ export default function HomePage() {
           />
 
           {/* Avatar + welcome text */}
-          <div className="flex w-full max-w-[1280px] flex-col items-center gap-6 px-4 sm:px-8 pt-8">
-            <div className="relative h-32 w-32 sm:h-40 sm:w-40 rounded-full border-[4px] border-white bg-white shadow-[0px_2px_2px_-1px_#0A0D120A,0px_4px_6px_-2px_#0A0D1208] overflow-hidden">
+          <div className="flex w-full max-w-[1280px] flex-col items-center gap-4 sm:gap-6 px-4 sm:px-8 pt-6 sm:pt-8">
+            <div className="relative h-24 w-24 sm:h-32 sm:w-32 lg:h-40 lg:w-40 rounded-full border-[3px] sm:border-[4px] border-white bg-white shadow-[0px_2px_2px_-1px_#0A0D120A,0px_4px_6px_-2px_#0A0D1208] overflow-hidden">
               <Image
                 src="/avatar.png"
                 alt="Margot"
@@ -112,11 +112,11 @@ export default function HomePage() {
               />
             </div>
 
-            <div className="flex max-w-[640px] flex-col gap-1 text-center">
-              <h1 className="text-xl sm:text-2xl font-semibold leading-8 text-slate-900">
+            <div className="flex max-w-[640px] flex-col gap-1 text-center px-4">
+              <h1 className="text-lg sm:text-xl lg:text-2xl font-semibold leading-7 sm:leading-8 text-slate-900">
                 Welcome, I&apos;m Margot
               </h1>
-              <p className="text-sm sm:text-base font-normal leading-6 text-slate-600">
+              <p className="text-xs sm:text-sm lg:text-base font-normal leading-5 sm:leading-6 text-slate-600">
                 How can I help you get new customers?
               </p>
             </div>
@@ -124,27 +124,27 @@ export default function HomePage() {
 
           {/* Dashboard header row */}
           <div className="w-full max-w-[1280px] px-4 sm:px-8">
-            <div className="flex w-full items-center justify-between gap-4 flex-wrap">
+            <div className="flex w-full items-start sm:items-center justify-between gap-3 sm:gap-4 flex-col sm:flex-row">
               <div className="flex flex-col gap-1">
-                <h2 className="text-xl sm:text-2xl leading-8 font-semibold text-[#181D27]">
+                <h2 className="text-lg sm:text-xl lg:text-2xl leading-7 sm:leading-8 font-semibold text-[#181D27]">
                   Dashboard
                 </h2>
-                <p className="text-sm sm:text-base leading-6 text-slate-600">
+                <p className="text-xs sm:text-sm lg:text-base leading-5 sm:leading-6 text-slate-600">
                   Here is a summary of the customer search campaigns I am running.
                 </p>
               </div>
 
               <button
                 type="button"
-                className="flex items-center h-10 rounded-[8px] bg-[#3373F5] text-white border-2 border-[#3373F5] px-[14px] gap-1 shadow-[0_1px_2px_rgba(16,24,40,0.05)] whitespace-nowrap"
+                className="flex items-center h-9 sm:h-10 rounded-[8px] bg-[#3373F5] text-white border-2 border-[#3373F5] px-3 sm:px-[14px] gap-1 shadow-[0_1px_2px_rgba(16,24,40,0.05)] whitespace-nowrap self-start sm:self-auto"
               >
-                <span className="px-[2px] text-[14px] font-semibold leading-5">
+                <span className="px-[2px] text-xs sm:text-[14px] font-semibold leading-5">
                   Create campaign
                 </span>
                 <Image
                   src="/LandingPage/announcement.svg"
                   alt="announcement"
-                  className="ml-2 inline-block w-5 h-5"
+                  className="ml-1 sm:ml-2 inline-block w-4 h-4 sm:w-5 sm:h-5"
                   width={20}
                   height={20}
                   aria-hidden
@@ -155,45 +155,45 @@ export default function HomePage() {
 
           {/* Stat cards — 1 col on mobile, 3 on sm+ */}
           <div className="w-full max-w-[1280px] px-4 sm:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
               {statsData.map((item) => (
                 <div
                   key={item.key}
-                  className="flex w-full rounded-[12px] border-2 border-[#E9EAEB] bg-white p-5 gap-4 shadow-[0px_1px_2px_0px_#1018280D]"
+                  className="flex w-full rounded-[12px] border-2 border-[#E9EAEB] bg-white p-4 sm:p-5 gap-3 sm:gap-4 shadow-[0px_1px_2px_0px_#1018280D]"
                 >
                   <div className="flex items-start">
-                    <div className="w-10 h-10 rounded-[8px] border border-[#E9EAEB] bg-white flex items-center justify-center shadow-[0px_1px_2px_0px_#1018280D,0px_-2px_0px_0px_#0A0D120A]">
+                    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-[8px] border border-[#E9EAEB] bg-white flex items-center justify-center shadow-[0px_1px_2px_0px_#1018280D,0px_-2px_0px_0px_#0A0D120A]">
                       <Image
                         src={item.src}
                         alt="icon"
-                        className="w-5 h-5"
+                        className="w-4 h-4 sm:w-5 sm:h-5"
                         width={20}
                         height={20}
                       />
                     </div>
                   </div>
 
-                  <div className="flex-1 flex flex-col justify-between">
-                    <span className="text-sm font-semibold text-[#535862]">
+                  <div className="flex-1 flex flex-col justify-between gap-2">
+                    <span className="text-xs sm:text-sm font-semibold text-[#535862]">
                       {item.text}
                     </span>
 
                     <div className="flex items-center justify-between">
-                      <span className="text-[30px] leading-[38px] font-semibold text-[#181D27]">
+                      <span className="text-2xl sm:text-[30px] leading-8 sm:leading-[38px] font-semibold text-[#181D27]">
                         {item.number}
                       </span>
 
-                      <div className="flex items-center gap-[4px] border rounded-[6px] border-[#D5D7DA] px-2 py-1 shadow-[0px_1px_2px_0px_#1018280D]">
-                        <div className="w-[12px] h-[12px] relative">
+                      <div className="flex items-center gap-[4px] border rounded-[6px] border-[#D5D7DA] px-1.5 sm:px-2 py-0.5 sm:py-1 shadow-[0px_1px_2px_0px_#1018280D]">
+                        <div className="w-[10px] h-[10px] sm:w-[12px] sm:h-[12px] relative">
                           <Image
                             src="/LandingPage/arrow-upright-icon.svg"
                             alt="icon"
                             width={20}
                             height={20}
-                            className="absolute top-[3.5px] left-[3.5px] w-[6px] h-[6px]"
+                            className="absolute top-[3px] sm:top-[3.5px] left-[3px] sm:left-[3.5px] w-[5px] sm:w-[6px] h-[5px] sm:h-[6px]"
                           />
                         </div>
-                        <span className="text-[14px] leading-[20px] font-medium font-inter text-[#414651]">
+                        <span className="text-xs sm:text-[14px] leading-[18px] sm:leading-[20px] font-medium font-inter text-[#414651]">
                           {item.percentage}
                         </span>
                       </div>
@@ -205,20 +205,20 @@ export default function HomePage() {
           </div>
 
           {/* Controls + chart section */}
-          <div className="w-full max-w-[1280px] px-4 sm:px-8 mt-6">
-            <div className="flex flex-col gap-5">
+          <div className="w-full max-w-[1280px] px-4 sm:px-8">
+            <div className="flex flex-col gap-4 sm:gap-5">
               {/* Tab toggle: Your company / Your clients / Products */}
-              <div className="self-stretch bg-neutral-50 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 flex justify-center items-center gap-0.5 cursor-pointer">
+              <div className="self-stretch bg-neutral-50 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 flex justify-center items-center gap-0.5 cursor-pointer p-0.5 overflow-hidden">
                 <button
                   onClick={() => setActiveTab("company")}
-                  className={`flex-1 h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all ${
+                  className={`flex-1 h-8 sm:h-9 px-1.5 sm:px-3 py-1.5 sm:py-2 rounded-lg flex justify-center items-center gap-1 overflow-hidden transition-all ${
                     activeTab === "company"
                       ? "bg-white shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
                       : ""
                   }`}
                 >
                   <div
-                    className={`text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5 text-center ${
+                    className={`text-[11px] sm:text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-4 sm:leading-5 text-center truncate ${
                       activeTab === "company" ? "text-gray-700" : "text-gray-500"
                     }`}
                   >
@@ -227,14 +227,14 @@ export default function HomePage() {
                 </button>
                 <button
                   onClick={() => setActiveTab("clients")}
-                  className={`flex-1 h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all ${
+                  className={`flex-1 h-8 sm:h-9 px-1.5 sm:px-3 py-1.5 sm:py-2 rounded-lg flex justify-center items-center gap-1 overflow-hidden transition-all ${
                     activeTab === "clients"
                       ? "bg-white shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
                       : ""
                   }`}
                 >
                   <div
-                    className={`text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5 text-center ${
+                    className={`text-[11px] sm:text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-4 sm:leading-5 text-center truncate ${
                       activeTab === "clients" ? "text-gray-700" : "text-gray-500"
                     }`}
                   >
@@ -243,46 +243,46 @@ export default function HomePage() {
                 </button>
                 <button
                   onClick={() => setActiveTab("products")}
-                  className={`flex-1 h-9 px-2 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all ${
+                  className={`flex-1 h-8 sm:h-9 px-1 sm:px-2 py-1.5 sm:py-2 rounded-lg flex justify-center items-center gap-1 overflow-hidden transition-all ${
                     activeTab === "products"
                       ? "bg-white shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
                       : ""
                   }`}
                 >
                   <div
-                    className={`text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5 text-center ${
+                    className={`text-[11px] sm:text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-4 sm:leading-5 text-center truncate ${
                       activeTab === "products" ? "text-gray-700" : "text-gray-500"
                     }`}
                   >
-                    Products/Services
+                    Products
                   </div>
                 </button>
               </div>
 
               {/* Chart header row */}
-              <div className="flex items-start justify-between gap-4 w-full flex-wrap">
+              <div className="flex items-start justify-between gap-3 sm:gap-4 w-full flex-col lg:flex-row">
                 <div className="flex items-center gap-1 flex-wrap">
-                  <div className="text-base sm:text-[18px] leading-7 font-semibold text-[#181D27] font-['Plus_Jakarta_Sans']">
+                  <div className="text-sm sm:text-base lg:text-[18px] leading-6 sm:leading-7 font-semibold text-[#181D27] font-['Plus_Jakarta_Sans']">
                     Business opportunities found by Margot
                   </div>
-                  <div className="text-emerald-600 text-base sm:text-[18px] leading-7 font-semibold font-['Plus_Jakarta_Sans']">
+                  <div className="text-emerald-600 text-sm sm:text-base lg:text-[18px] leading-6 sm:leading-7 font-semibold font-['Plus_Jakarta_Sans']">
                     +104%
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 flex-wrap">
+                <div className="flex items-start gap-2 sm:gap-3 flex-wrap w-full lg:w-auto">
                   {/* Time range toggle */}
-                  <div className="bg-neutral-50 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 flex justify-start items-center gap-0.5">
+                  <div className="bg-neutral-50 rounded-lg outline outline-1 outline-offset-[-1px] outline-gray-200 flex justify-start items-center gap-0.5 p-0.5 flex-1 lg:flex-none overflow-x-auto">
                     <button
                       onClick={() => setSelectedTimeRange("12months")}
-                      className={`h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all ${
+                      className={`h-8 sm:h-9 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all flex-shrink-0 ${
                         selectedTimeRange === "12months"
                           ? "bg-white shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
                           : ""
                       }`}
                     >
                       <div
-                        className={`text-sm font-semibold font-['Inter'] leading-5 whitespace-nowrap ${
+                        className={`text-xs sm:text-sm font-semibold font-['Inter'] leading-5 whitespace-nowrap ${
                           selectedTimeRange === "12months" ? "text-gray-700" : "text-gray-500"
                         }`}
                       >
@@ -291,14 +291,14 @@ export default function HomePage() {
                     </button>
                     <button
                       onClick={() => setSelectedTimeRange("30days")}
-                      className={`h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all ${
+                      className={`h-8 sm:h-9 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all flex-shrink-0 ${
                         selectedTimeRange === "30days"
                           ? "bg-white shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
                           : ""
                       }`}
                     >
                       <div
-                        className={`text-sm font-semibold font-['Inter'] leading-5 whitespace-nowrap ${
+                        className={`text-xs sm:text-sm font-semibold font-['Inter'] leading-5 whitespace-nowrap ${
                           selectedTimeRange === "30days" ? "text-gray-700" : "text-gray-500"
                         }`}
                       >
@@ -307,14 +307,14 @@ export default function HomePage() {
                     </button>
                     <button
                       onClick={() => setSelectedTimeRange("7days")}
-                      className={`h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all ${
+                      className={`h-8 sm:h-9 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all flex-shrink-0 ${
                         selectedTimeRange === "7days"
                           ? "bg-white shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
                           : ""
                       }`}
                     >
                       <div
-                        className={`text-sm font-semibold font-['Inter'] leading-5 whitespace-nowrap ${
+                        className={`text-xs sm:text-sm font-semibold font-['Inter'] leading-5 whitespace-nowrap ${
                           selectedTimeRange === "7days" ? "text-gray-700" : "text-gray-500"
                         }`}
                       >
@@ -323,14 +323,14 @@ export default function HomePage() {
                     </button>
                     <button
                       onClick={() => setSelectedTimeRange("24hours")}
-                      className={`h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all ${
+                      className={`h-8 sm:h-9 px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden transition-all flex-shrink-0 ${
                         selectedTimeRange === "24hours"
                           ? "bg-white shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
                           : ""
                       }`}
                     >
                       <div
-                        className={`text-sm font-semibold font-['Inter'] leading-5 whitespace-nowrap ${
+                        className={`text-xs sm:text-sm font-semibold font-['Inter'] leading-5 whitespace-nowrap ${
                           selectedTimeRange === "24hours" ? "text-gray-700" : "text-gray-500"
                         }`}
                       >
@@ -342,13 +342,13 @@ export default function HomePage() {
                   {/* Filter button */}
                   <button
                     onClick={() => console.log("Filters clicked")}
-                    className="px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 flex justify-center items-center gap-1 overflow-hidden cursor-pointer hover:bg-gray-50 transition-colors"
+                    className="px-3 py-1.5 sm:py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,24,40,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 flex justify-center items-center gap-1 overflow-hidden cursor-pointer hover:bg-gray-50 transition-colors h-8 sm:h-9"
                   >
-                    <div className="w-5 h-5 relative overflow-hidden">
-                      <div className="w-[14px] h-[10px] left-[2.5px] top-[5px] absolute outline outline-[1.67px] outline-offset-[-0.83px] outline-gray-700" />
+                    <div className="w-4 h-4 sm:w-5 sm:h-5 relative overflow-hidden">
+                      <div className="w-[12px] sm:w-[14px] h-[9px] sm:h-[10px] left-[2px] sm:left-[2.5px] top-[4px] sm:top-[5px] absolute outline outline-[1.5px] sm:outline-[1.67px] outline-offset-[-0.75px] sm:outline-offset-[-0.83px] outline-gray-700" />
                     </div>
                     <div className="px-0.5 flex justify-center items-center">
-                      <div className="text-gray-700 text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
+                      <div className="text-gray-700 text-xs sm:text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
                         Filters
                       </div>
                     </div>
@@ -359,8 +359,8 @@ export default function HomePage() {
           </div>
 
           {/* Bar chart — full width, responsive height */}
-          <div className="w-full max-w-[1280px] px-4 sm:px-8 mt-2">
-            <div className="w-full bg-white">
+          <div className="w-full max-w-[1280px] px-4 sm:px-8">
+            <div className="w-full bg-white overflow-x-auto">
               <BarChart
                 data={[
                   20, 14, 3, 20, 24, 12, 16, 20, 28, 36, 2, 2, 16, 6, 4, 6, 2,

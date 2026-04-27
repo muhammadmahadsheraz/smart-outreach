@@ -90,13 +90,19 @@ export function SignupForm() {
 
       console.log("✨ Signup successful!");
       // Store user in context and localStorage
-      const userData = { email, name: `${firstName} ${lastName}`, company };
+      const userData = json.user;
+      const token = json.token;
+      
+      if (!userData || !token) {
+        throw new Error("Invalid server response: missing user data or token");
+      }
+      
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
-      localStorage.setItem("auth-token", "true");
+      localStorage.setItem("jwt-token", token);
 
       // Set auth cookie for middleware
-      document.cookie = "auth-token=true; path=/; max-age=86400";
+      document.cookie = `jwt-token=${token}; path=/; max-age=86400`;
 
       setSuccess("Account created. Redirecting...");
       event.currentTarget?.reset();
@@ -117,13 +123,13 @@ export function SignupForm() {
   return (
     <>
       <form
-        className="mt-6 grid grid-cols-1 gap-4 md:grid-cols-2"
+        className="mt-4 sm:mt-6 grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2"
         onSubmit={handleSubmit}
       >
-        <div className="space-y-1">
+        <div className="space-y-1.5">
           <label
             htmlFor="firstName"
-            className="text-sm font-medium leading-5 text-[#414651]"
+            className="block text-sm font-medium leading-5 text-[#414651]"
           >
             Name
           </label>
@@ -134,7 +140,7 @@ export function SignupForm() {
             className="w-full rounded-lg border border-[#D5D7DA] bg-white px-3 py-2 text-sm text-slate-900 outline-none transition shadow-[0px_1px_2px_0px_#0A0D120D] focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
           />
         </div>
-        <div className="space-y-1 md:pt-[25px]">
+        <div className="space-y-1.5 md:pt-[25px]">
           <label
             htmlFor="lastName"
             className="pointer-events-none block text-xs font-medium text-transparent md:sr-only"
@@ -149,10 +155,10 @@ export function SignupForm() {
           />
         </div>
 
-        <div className="col-span-1 space-y-1 md:col-span-2">
+        <div className="col-span-1 space-y-1.5 md:col-span-2">
           <label
             htmlFor="email"
-            className="text-sm font-medium leading-5 text-[#414651]"
+            className="block text-sm font-medium leading-5 text-[#414651]"
           >
             Email
           </label>
@@ -165,10 +171,10 @@ export function SignupForm() {
           />
         </div>
 
-        <div className="col-span-1 space-y-1 md:col-span-2">
+        <div className="col-span-1 space-y-1.5 md:col-span-2">
           <label
             htmlFor="company"
-            className="text-sm font-medium leading-5 text-[#414651]"
+            className="block text-sm font-medium leading-5 text-[#414651]"
           >
             Company
           </label>
@@ -180,10 +186,10 @@ export function SignupForm() {
           />
         </div>
 
-        <div className="col-span-1 space-y-2 md:col-span-2">
+        <div className="col-span-1 space-y-1.5 md:col-span-2">
           <label
             htmlFor="password"
-            className="text-sm font-medium leading-5 text-[#414651]"
+            className="block text-sm font-medium leading-5 text-[#414651]"
           >
             Password
           </label>
@@ -200,26 +206,26 @@ export function SignupForm() {
           <div className="mt-2 space-y-1.5">
             <div className="flex items-center gap-2">
               <span
-                className={`flex h-5 w-5 items-center justify-center rounded-full transition-colors ${
+                className={`flex h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 items-center justify-center rounded-full transition-colors ${
                   hasMinLength ? "bg-emerald-500" : "bg-[#D5D7DA]"
                 }`}
               >
                 <Image src="/images/tick.svg" alt="" width={8} height={5} />
               </span>
-              <p className={`text-sm ${hasMinLength ? "text-emerald-600" : "text-slate-500"}`}>
+              <p className={`text-xs sm:text-sm ${hasMinLength ? "text-emerald-600" : "text-slate-500"}`}>
                 Must be at least 8 characters
               </p>
             </div>
             <div className="flex items-center gap-2">
               <span
-                className={`flex h-5 w-5 items-center justify-center rounded-full transition-colors ${
+                className={`flex h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0 items-center justify-center rounded-full transition-colors ${
                   hasSpecialCharacter ? "bg-emerald-500" : "bg-[#D5D7DA]"
                 }`}
               >
                 <Image src="/images/tick.svg" alt="" width={8} height={5} />
               </span>
               <p
-                className={`text-sm ${
+                className={`text-xs sm:text-sm ${
                   hasSpecialCharacter ? "text-emerald-600" : "text-slate-500"
                 }`}
               >
@@ -229,10 +235,10 @@ export function SignupForm() {
           </div>
         </div>
 
-          <div className="col-span-1 mt-6 space-y-3 md:col-span-2">
+          <div className="col-span-1 mt-4 sm:mt-6 space-y-3 md:col-span-2">
           <button
             type="submit"
-            className="inline-flex w-full items-center justify-center rounded-lg bg-[#0254CF] px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#0254CF]-500/40 transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+            className="inline-flex w-full items-center justify-center rounded-lg bg-[#0254CF] px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-[#0254CF]-500/40 transition hover:bg-indigo-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={loading}
           >
             {loading ? "Signing up..." : "Get started"}

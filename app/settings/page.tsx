@@ -28,26 +28,35 @@ export default function SettingsPage() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const token = localStorage.getItem("token");
-        const response = await fetch("/api/login", {
+        const token = localStorage.getItem("jwt-token");
+        if (!token) {
+          setMessage({ type: "error", text: "Not authenticated" });
+          setLoading(false);
+          return;
+        }
+
+        const response = await fetch("/api/settings", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         const data = await response.json();
         if (data.ok && data.data) {
-          setFormData((prev) => ({
-            ...prev,
+          setFormData({
             firstName: data.data.personalInfo?.firstName || "",
             lastName: data.data.personalInfo?.lastName || "",
             email: data.data.personalInfo?.email || "",
+            oldPassword: "",
+            newPassword: "",
             companyName: data.data.billingDetails?.companyName || "",
             address: data.data.billingDetails?.address || "",
             city: data.data.billingDetails?.city || "",
             zipCode: data.data.billingDetails?.zipCode || "",
             country: data.data.billingDetails?.country || "Australia",
             companyNumber: data.data.billingDetails?.companyNumber || "",
-          }));
+          });
           setSelectedPlan(data.data.subscription?.plan || "free");
+        } else {
+          setMessage({ type: "error", text: data.error || "Failed to load settings" });
         }
       } catch (error) {
         console.error("Error fetching settings:", error);
@@ -74,8 +83,13 @@ export default function SettingsPage() {
     setSaving(true);
     setMessage(null);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/login", {
+      const token = localStorage.getItem("jwt-token");
+      if (!token) {
+        setMessage({ type: "error", text: "Not authenticated" });
+        return;
+      }
+
+      const response = await fetch("/api/settings/personal-info", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -108,8 +122,13 @@ export default function SettingsPage() {
     setSaving(true);
     setMessage(null);
     try {
-      const token = localStorage.getItem("token");
-      const response = await fetch("/api/login", {
+      const token = localStorage.getItem("jwt-token");
+      if (!token) {
+        setMessage({ type: "error", text: "Not authenticated" });
+        return;
+      }
+
+      const response = await fetch("/api/settings/billing", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -144,10 +163,10 @@ export default function SettingsPage() {
 
   if (loading) {
     return (
-      <div className="max-w-[1440px] mx-auto flex bg-slate-50 font-sans">
+      <div className="flex bg-slate-50 font-sans min-h-screen">
         <main className="flex w-full bg-white">
           <Sidebar />
-          <section className="relative flex min-h-screen w-full flex-col items-center pb-12 gap-0 overflow-x-hidden">
+          <section className="relative flex min-h-screen w-full flex-col items-center pb-8 sm:pb-12 gap-0 overflow-x-hidden">
             <MobileHeader />
             <div className="flex items-center justify-center w-full h-96">
               <div className="text-gray-600">Loading settings...</div>
@@ -159,34 +178,25 @@ export default function SettingsPage() {
   }
 
   return (
-    <div className="max-w-[1440px] mx-auto flex bg-slate-50 font-sans">
+    <div className="flex bg-slate-50 font-sans min-h-screen">
       <main className="flex w-full bg-white">
         <Sidebar />
 
-        <section className="relative flex min-h-screen w-full flex-col items-center pb-12 gap-0 overflow-x-hidden">
+        <section className="relative flex min-h-screen w-full flex-col items-center pb-8 sm:pb-12 gap-0 overflow-x-hidden">
           {/* Mobile header */}
           <MobileHeader />
 
           {/* Settings Content */}
-          <div className="self-stretch py-12 bg-white inline-flex flex-col justify-start items-center">
-            <div className="w-[1144px] flex flex-col justify-start items-start gap-8 overflow-hidden">
+          <div className="self-stretch py-8 sm:py-12 bg-white inline-flex flex-col justify-start items-center">
+            <div className="w-full max-w-[1144px] flex flex-col justify-start items-start gap-6 sm:gap-8 overflow-hidden px-4 sm:px-6 lg:px-8">
               {/* Header */}
-              <div
-                data-actions="false"
-                data-breakpoint="Desktop"
-                data-divider="true"
-                data-dropdown-icon="false"
-                data-supporting-text="true"
-                data-tabs="False"
-                data-type="Buttons"
-                className="self-stretch px-8 flex flex-col justify-start items-start gap-5"
-              >
+              <div className="self-stretch flex flex-col justify-start items-start gap-4 sm:gap-5">
                 <div className="self-stretch inline-flex justify-start items-start gap-4">
                   <div className="flex-1 self-stretch inline-flex flex-col justify-center items-start gap-0.5">
-                    <div className="self-stretch justify-start text-gray-900 text-2xl font-semibold font-['Plus_Jakarta_Sans'] leading-8">
+                    <div className="self-stretch justify-start text-gray-900 text-xl sm:text-2xl font-semibold font-['Plus_Jakarta_Sans'] leading-7 sm:leading-8">
                       Settings
                     </div>
-                    <div className="self-stretch justify-start text-gray-600 text-base font-normal font-['Plus_Jakarta_Sans'] leading-6 line-clamp-1">
+                    <div className="self-stretch justify-start text-gray-600 text-sm sm:text-base font-normal font-['Plus_Jakarta_Sans'] leading-5 sm:leading-6 line-clamp-1">
                       Manage your information and preferences here.
                     </div>
                   </div>
@@ -195,25 +205,16 @@ export default function SettingsPage() {
               </div>
 
               {/* Personal Info Section */}
-              <div className="self-stretch flex flex-col justify-start items-start gap-6">
-                <div className="self-stretch px-8 flex flex-col justify-start items-start gap-6">
+              <div className="self-stretch flex flex-col justify-start items-start gap-4 sm:gap-6">
+                <div className="self-stretch flex flex-col justify-start items-start gap-4 sm:gap-6">
                   {/* Personal Info Header */}
-                  <div
-                    data-actions="false"
-                    data-breakpoint="Desktop"
-                    data-divider="true"
-                    data-dropdown-icon="false"
-                    data-supporting-text="true"
-                    data-tabs="False"
-                    data-type="Buttons"
-                    className="self-stretch flex flex-col justify-start items-start gap-5"
-                  >
+                  <div className="self-stretch flex flex-col justify-start items-start gap-4 sm:gap-5">
                     <div className="self-stretch inline-flex justify-start items-start gap-4">
                       <div className="flex-1 self-stretch inline-flex flex-col justify-center items-start gap-0.5">
-                        <div className="self-stretch justify-start text-gray-900 text-lg font-semibold font-['Plus_Jakarta_Sans'] leading-7">
+                        <div className="self-stretch justify-start text-gray-900 text-base sm:text-lg font-semibold font-['Plus_Jakarta_Sans'] leading-6 sm:leading-7">
                           Personal info
                         </div>
-                        <div className="self-stretch justify-start text-gray-600 text-sm font-normal font-['Plus_Jakarta_Sans'] leading-5 line-clamp-1">
+                        <div className="self-stretch justify-start text-gray-600 text-xs sm:text-sm font-normal font-['Plus_Jakarta_Sans'] leading-4 sm:leading-5 line-clamp-1">
                           Update your personal details and photo here.
                         </div>
                       </div>
@@ -222,73 +223,44 @@ export default function SettingsPage() {
                   </div>
 
                   {/* Personal Info Form */}
-                  <div className="self-stretch flex flex-col justify-start items-start gap-5">
+                  <div className="self-stretch flex flex-col justify-start items-start gap-4 sm:gap-5">
                     {message && (
                       <div className={`w-full p-3 rounded-lg text-sm ${message.type === "success" ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
                         {message.text}
                       </div>
                     )}
                     {/* Name Fields */}
-                    <div className="self-stretch inline-flex justify-start items-start gap-8 flex-wrap content-start">
-                      <div
-                        data-actions="False"
-                        data-help-icon="false"
-                        data-required ="true"
-                        data-size="sm"
-                        data-supporting-text="false"
-                        className="flex-1 max-w-72 min-w-48 inline-flex flex-col justify-start items-start"
-                      >
+                    <div className="self-stretch flex flex-col sm:flex-row justify-start items-start gap-4 sm:gap-8 flex-wrap">
+                      <div className="w-full sm:flex-1 sm:max-w-72 sm:min-w-48 inline-flex flex-col justify-start items-start">
                         <div className="inline-flex justify-start items-center gap-0.5">
-                          <div className="justify-start text-gray-700 text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-5">
+                          <div className="justify-start text-gray-700 text-xs sm:text-sm font-semibold font-['Plus_Jakarta_Sans'] leading-4 sm:leading-5">
                             Name
                           </div>
-                          <div className="justify-start text-blue-700 text-sm font-semibold font-['Inter'] leading-5">
+                          <div className="justify-start text-blue-700 text-xs sm:text-sm font-semibold font-['Inter'] leading-4 sm:leading-5">
                             *
                           </div>
                         </div>
                       </div>
-                      <div className="flex-1 min-w-[480px] flex justify-start items-start gap-6">
-                        <div
-                          data-destructive="False"
-                          data-help-icon="false"
-                          data-hint-text="false"
-                          data-label="false"
-                          data-size="md"
-                          data-state="Placeholder"
-                          data-type="Default"
-                          className="flex-1 inline-flex flex-col justify-start items-start gap-1.5"
-                        >
-                          <div className="self-stretch flex flex-col justify-start items-start gap-1.5">
-                            <input
-                              type="text"
-                              name="firstName"
-                              value={formData.firstName}
-                              onChange={handleInputChange}
-                              placeholder="First name"
-                              className="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 inline-flex justify-start items-center gap-2 text-gray-500 text-base font-normal font-['Plus_Jakarta_Sans'] leading-6"
-                            />
-                          </div>
+                      <div className="w-full sm:flex-1 sm:min-w-[300px] flex flex-col sm:flex-row justify-start items-start gap-3 sm:gap-6">
+                        <div className="w-full sm:flex-1 inline-flex flex-col justify-start items-start gap-1.5">
+                          <input
+                            type="text"
+                            name="firstName"
+                            value={formData.firstName}
+                            onChange={handleInputChange}
+                            placeholder="First name"
+                            className="w-full px-3 sm:px-3.5 py-2 sm:py-2.5 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-500 text-sm sm:text-base font-normal font-['Plus_Jakarta_Sans'] leading-5 sm:leading-6"
+                          />
                         </div>
-                        <div
-                          data-destructive="False"
-                          data-help-icon="false"
-                          data-hint-text="false"
-                          data-label="false"
-                          data-size="md"
-                          data-state="Placeholder"
-                          data-type="Default"
-                          className="flex-1 inline-flex flex-col justify-start items-start gap-1.5"
-                        >
-                          <div className="self-stretch flex flex-col justify-start items-start gap-1.5">
-                            <input
-                              type="text"
-                              name="lastName"
-                              value={formData.lastName}
-                              onChange={handleInputChange}
-                              placeholder="Last name"
-                              className="self-stretch px-3.5 py-2.5 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 inline-flex justify-start items-center gap-2 text-gray-500 text-base font-normal font-['Plus_Jakarta_Sans'] leading-6"
-                            />
-                          </div>
+                        <div className="w-full sm:flex-1 inline-flex flex-col justify-start items-start gap-1.5">
+                          <input
+                            type="text"
+                            name="lastName"
+                            value={formData.lastName}
+                            onChange={handleInputChange}
+                            placeholder="Last name"
+                            className="w-full px-3 sm:px-3.5 py-2 sm:py-2.5 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-500 text-sm sm:text-base font-normal font-['Plus_Jakarta_Sans'] leading-5 sm:leading-6"
+                          />
                         </div>
                       </div>
                     </div>

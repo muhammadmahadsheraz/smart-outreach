@@ -5,11 +5,11 @@ import MargotTrainingFormSwitcher from "@/components/MargotTrainingForms/margott
 
 export default function MargotTraining() {
   return (
-    <div className="max-w-[1440px] mx-auto flex bg-slate-50 font-sans">
+    <div className="flex bg-slate-50 font-sans min-h-screen">
       <main className="flex w-full bg-white">
         <Sidebar />
 
-        <section className="relative z-0 flex min-h-screen w-full flex-col items-center pb-12 overflow-x-hidden">
+        <section className="relative z-0 flex min-h-screen w-full flex-col items-center pb-8 sm:pb-12 overflow-x-hidden">
           {/* Mobile header */}
           <MobileHeader />
           
@@ -42,8 +42,8 @@ export default function MargotTraining() {
           />
 
           {/* Avatar + heading */}
-          <div className="z-10 flex w-full max-w-[1280px] flex-col items-center px-4 sm:px-8 py-10 sm:py-14 gap-5">
-            <div className="relative h-16 w-16 sm:h-[72px] sm:w-[72px] rounded-full border-[3px] border-white bg-white shadow-[0px_2px_2px_-1px_#0A0D120A,0px_4px_6px_-2px_#0A0D1208] overflow-hidden">
+          <div className="z-10 flex w-full max-w-[1280px] flex-col items-center px-4 sm:px-8 py-8 sm:py-10 lg:py-14 gap-4 sm:gap-5">
+            <div className="relative h-14 w-14 sm:h-16 sm:w-16 lg:h-[72px] lg:w-[72px] rounded-full border-[3px] border-white bg-white shadow-[0px_2px_2px_-1px_#0A0D120A,0px_4px_6px_-2px_#0A0D1208] overflow-hidden">
               <Image
                 src="/avatar.png"
                 alt="Margot"
@@ -54,7 +54,7 @@ export default function MargotTraining() {
             </div>
 
             <div className="flex max-w-[640px] flex-col gap-1 text-center px-4">
-              <div className="text-xl sm:text-[24px] leading-[32px] font-semibold font-sans text-center text-gray-900">
+              <div className="text-lg sm:text-xl lg:text-[24px] leading-7 sm:leading-8 lg:leading-[32px] font-semibold font-sans text-center text-gray-900">
                 Hello, help me understand what product or service to sell.
               </div>
             </div>

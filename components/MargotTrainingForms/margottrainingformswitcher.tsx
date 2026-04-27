@@ -18,20 +18,20 @@ export default function MargotTrainingFormSwitcher() {
   const activeLabel = tabs.find((t) => t.id === activeBtn)?.label;
 
   return (
-    <div className="pt-12 flex flex-col gap-12">
+    <div className="pt-8 sm:pt-12 flex flex-col gap-8 sm:gap-12">
 
       {/* Mobile/MD: Dropdown */}
       <div className="lg:hidden relative">
         <select
           value={activeBtn}
           onChange={(e) => setActiveBtn(e.target.value)}
-          className="w-full appearance-none bg-white border border-gray-200 rounded-lg px-4 py-2.5 text-sm font-semibold text-gray-700 font-['Plus_Jakarta_Sans'] shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer"
+          className="w-full appearance-none bg-white border border-gray-200 rounded-lg px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-gray-700 font-['Plus_Jakarta_Sans'] shadow-sm focus:outline-none focus:ring-2 focus:ring-gray-300 cursor-pointer"
         >
           {tabs.map(({ id, label }) => (
             <option key={id} value={id}>{label}</option>
           ))}
         </select>
-        <ChevronDown className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500 pointer-events-none" />
+        <ChevronDown className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-gray-500 pointer-events-none" />
       </div>
 
       {/* LG+: Pill tab switcher */}
@@ -40,7 +40,7 @@ export default function MargotTrainingFormSwitcher() {
           <div
             key={id}
             onClick={() => setActiveBtn(id)}
-            className={`flex-1 h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden cursor-pointer
+            className={`flex-1 h-9 px-3 py-2 rounded-lg flex justify-center items-center gap-2 overflow-hidden cursor-pointer transition-all
               ${activeBtn === id
                 ? "bg-white shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] border border-gray-300"
                 : "hover:text-gray-700"
