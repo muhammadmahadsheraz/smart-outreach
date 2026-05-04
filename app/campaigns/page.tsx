@@ -1,6 +1,7 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import Sidebar from "@/components/Sidebar";
 import MobileHeader from "@/components/MobileHeader";
 
@@ -145,6 +146,7 @@ function CampaignCard({ c, selected, onSelect }: { c: Campaign; selected: boolea
 
 // ── Main component ─────────────────────────────────────────────────────────────
 export default function Campaigns() {
+  const router = useRouter();
   const [campaigns, setCampaigns] = useState<Campaign[]>([]);
   const [loading, setLoading] = useState(true);
   const [selected, setSelected] = useState(new Set());
@@ -153,6 +155,38 @@ export default function Campaigns() {
   const [sortOrder, setSortOrder] = useState("newest");
   const [page, setPage] = useState(1);
   const PER_PAGE = 6;
+
+  const handleAddNew = useCallback(async () => {
+    try {
+      const token = localStorage.getItem("jwt-token");
+      const res = await fetch("/api/gmail/status", {
+        headers: token ? { Authorization: `Bearer ${token}` } : {},
+      });
+      if (res.ok) {
+        const data = await res.json();
+        if (!data.connected) {
+          // Not connected — trigger OAuth, redirect back to campaigns/new after
+          const authRes = await fetch("/api/gmail/auth-url?redirect=campaigns/new", {
+            headers: token ? { Authorization: `Bearer ${token}` } : {},
+          });
+          if (authRes.ok) {
+            const authData = await authRes.json();
+            if (authData.ok && authData.url) {
+              window.location.href = authData.url;
+              return;
+            }
+          }
+          alert("Failed to start Gmail connection. Please try again.");
+          return;
+        }
+      }
+      // Gmail connected — go straight to new campaign
+      router.push("/campaigns/new");
+    } catch (error) {
+      console.error("Error checking Gmail status:", error);
+      router.push("/campaigns/new");
+    }
+  }, [router]);
 
   // Fetch campaigns on mount
   useEffect(() => {
@@ -272,12 +306,15 @@ export default function Campaigns() {
                 </select>
 
                 {/* Add new */}
-                <Link href="/campaigns/new" className="flex-1 sm:flex-none px-3.5 py-2 bg-blue-700 rounded-lg text-white text-sm font-semibold font-['Plus_Jakarta_Sans'] flex items-center justify-center gap-1.5 hover:bg-blue-800 transition-colors shadow-sm">
+                <button
+                  onClick={handleAddNew}
+                  className="flex-1 sm:flex-none px-3.5 py-2 bg-blue-700 rounded-lg text-white text-sm font-semibold font-['Plus_Jakarta_Sans'] flex items-center justify-center gap-1.5 hover:bg-blue-800 transition-colors shadow-sm"
+                >
                   <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth="2">
                     <path strokeLinecap="round" d="M12 5v14M5 12h14" />
                   </svg>
                   <span className="whitespace-nowrap">Add new</span>
-                </Link>
+                </button>
               </div>
             </div>
 

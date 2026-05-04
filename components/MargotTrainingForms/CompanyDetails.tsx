@@ -91,8 +91,6 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
           <div className="self-stretch py-1 inline-flex justify-start items-start gap-8 flex-wrap content-start">
             <div
               {...{
-                // original design had a weird data attribute “data-↳-required-*”
-                // which cannot be used directly in JSX; spread to preserve it.
                 'data-↳-required-*': 'false',
               }}
               data-actions="False"
@@ -155,7 +153,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
                   value={companyWebsite}
                   onChange={(e) => setCompanyWebsite(e.target.value)}
                   placeholder="https://example.com"
-                  className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300"
+                  className="self-stretch h-9 px-3 py-2 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-900"
                 />
               </div>
           </div>
@@ -181,7 +179,7 @@ export default function CompanyDetails(props: CompanyDetailsProps) {
               value={companyDescription}
               onChange={(e) => setCompanyDescription(e.target.value)}
               placeholder="Describe your company"
-              className="flex-1 h-24 px-3.5 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 resize-y overflow-visible pr-2"
+              className="flex-1 h-24 px-3.5 py-3 bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(10,13,18,0.05)] outline outline-1 outline-offset-[-1px] outline-zinc-300 text-gray-900 resize-y overflow-visible pr-2"
             />
           </div>
           {/* row 4 */}

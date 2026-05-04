@@ -205,21 +205,21 @@ export default function IdealCustomer({
   return (
     <>
       {/* Header section */}
-      <div className="flex flex-col justify-start items-center gap-6 mb-6 lg:px-8">
+      <div className="flex flex-col justify-start items-center gap-6 mb-6 px-0 lg:px-8">
         <div className="w-full flex flex-col justify-start items-start gap-5">
           <div className="self-stretch flex flex-col justify-start items-start gap-5">
-            <div className="self-stretch inline-flex justify-start items-start gap-4 flex-wrap content-start">
+            <div className="self-stretch inline-flex justify-between items-start gap-4 flex-wrap content-start">
               {/* Title and description */}
-              <div className="flex-1 min-w-80 inline-flex flex-col justify-start items-start gap-1">
-                <div className="self-stretch justify-start text-gray-900 text-2xl font-semibold font-['Plus_Jakarta_Sans'] leading-8">
+              <div className="flex flex-col justify-start items-start gap-1">
+                <div className="text-gray-900 text-xl sm:text-2xl font-semibold font-['Plus_Jakarta_Sans'] leading-8">
                   {stepTitles[currentStep]?.title}
                 </div>
-                <div className="self-stretch justify-start text-gray-600 text-base font-normal font-['Plus_Jakarta_Sans'] leading-6">
+                <div className="text-gray-600 text-sm sm:text-base font-normal font-['Plus_Jakarta_Sans'] leading-6">
                   {stepTitles[currentStep]?.description}
                 </div>
               </div>
               {/* Navigation buttons */}
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3 shrink-0">
                 {currentStep === 3 ? (
                   <button
                     onClick={() => onPrevious()}
@@ -270,12 +270,10 @@ export default function IdealCustomer({
         </div>
       </div>
 
-      <div className="flex flex-col xl:flex-row gap-6 w-full lg:px-8">
+      <div className="flex flex-col xl:flex-row gap-6 w-full px-0 lg:px-8">
 
         {/* ── LEFT: Filter form ── */}
-        <div className="flex-1 flex flex-col gap-5 min-w-0">
-
-
+        <div className="w-full xl:flex-1 flex flex-col gap-5 min-w-0">
 
           {/* Country / city */}
           <div className="flex flex-col gap-1.5">
@@ -396,7 +394,7 @@ export default function IdealCustomer({
         </div>
 
         {/* ── RIGHT: Prospects panel ── */}
-        <div className="w-full xl:w-[560px] shrink-0 bg-sky-50 rounded-xl p-4 flex flex-col gap-4">
+        <div className="w-full xl:w-[520px] shrink-0 bg-sky-50 rounded-xl p-4 flex flex-col gap-4">
           {/* Panel header */}
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
@@ -417,60 +415,64 @@ export default function IdealCustomer({
 
           {/* Table */}
           <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
-            {prospects.length === 0 && hasSearched ? (
-              <div className="px-4 py-8 text-center text-gray-500 text-sm font-['Plus_Jakarta_Sans']">
-                No prospects found matching your criteria. Try adjusting your filters.
-              </div>
-            ) : prospects.length === 0 ? (
-              <div className="px-4 py-8 text-center text-gray-500 text-sm font-['Plus_Jakarta_Sans']">
-                Click "Find prospects" to get started
-              </div>
-            ) : (
-              <>
-                {/* Header */}
-                <div className="flex items-center gap-2 sm:gap-3 px-3 py-2.5 bg-neutral-50 border-b border-gray-200">
-                  <input
-                    type="checkbox"
-                    checked={selected.size === prospects.length && prospects.length > 0}
-                    onChange={toggleAll}
-                    className="w-4 h-4 rounded border-zinc-300 accent-blue-700 cursor-pointer shrink-0"
-                  />
-                  <span className="flex-1 text-gray-500 text-xs font-semibold font-['Plus_Jakarta_Sans'] uppercase tracking-wide">Company</span>
-                  <span className="hidden sm:block w-32 text-gray-500 text-xs font-semibold font-['Plus_Jakarta_Sans'] uppercase tracking-wide shrink-0">Name</span>
-                  <span className="hidden md:block w-24 text-gray-500 text-xs font-semibold font-['Plus_Jakarta_Sans'] uppercase tracking-wide shrink-0">Role</span>
+            <div className="max-h-[400px] xl:max-h-[500px] overflow-y-auto">
+              {prospects.length === 0 && hasSearched ? (
+                <div className="px-4 py-8 text-center text-gray-500 text-sm font-['Plus_Jakarta_Sans']">
+                  No prospects found matching your criteria. Try adjusting your filters.
                 </div>
-
-                {/* Rows */}
-                {paginatedProspects.map((p: any, i: number) => (
-                  <ProspectRow
-                    key={i}
-                    prospect={p}
-                    checked={selected.has(startIndex + i)}
-                    onToggle={() => toggleProspect(startIndex + i)}
-                  />
-                ))}
-
-                {/* Pagination */}
-                <div className="px-4 py-3 border-t border-gray-100 flex items-center justify-between gap-3">
-                  <span className="text-gray-600 text-sm font-medium font-['Plus_Jakarta_Sans']">Page {validProspectPage} of {totalPages || 1}</span>
-                  <div className="flex items-center gap-2">
-                    <button
-                      disabled={validProspectPage === 1}
-                      onClick={() => setProspectPage(validProspectPage - 1)}
-                      className="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      Previous
-                    </button>
-                    <button
-                      disabled={validProspectPage === totalPages || totalPages === 0}
-                      onClick={() => setProspectPage(validProspectPage + 1)}
-                      className="px-3 py-1.5 bg-white rounded-lg border border-zinc-300 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700 hover:bg-gray-50 transition-colors"
-                    >
-                      Next
-                    </button>
+              ) : prospects.length === 0 ? (
+                <div className="px-4 py-8 text-center text-gray-500 text-sm font-['Plus_Jakarta_Sans']">
+                  Click "Find prospects" to get started
+                </div>
+              ) : (
+                <>
+                  {/* Header */}
+                  <div className="flex items-center gap-2 sm:gap-3 px-3 py-2.5 bg-neutral-50 border-b border-gray-200 sticky top-0 z-10">
+                    <input
+                      type="checkbox"
+                      checked={selected.size === prospects.length && prospects.length > 0}
+                      onChange={toggleAll}
+                      className="w-4 h-4 rounded border-zinc-300 accent-blue-700 cursor-pointer shrink-0"
+                    />
+                    <span className="flex-1 text-gray-500 text-xs font-semibold font-['Plus_Jakarta_Sans'] uppercase tracking-wide">Company</span>
+                    <span className="hidden sm:block w-32 text-gray-500 text-xs font-semibold font-['Plus_Jakarta_Sans'] uppercase tracking-wide shrink-0">Name</span>
+                    <span className="hidden md:block w-24 text-gray-500 text-xs font-semibold font-['Plus_Jakarta_Sans'] uppercase tracking-wide shrink-0">Role</span>
                   </div>
+
+                  {/* Rows */}
+                  {paginatedProspects.map((p: any, i: number) => (
+                    <ProspectRow
+                      key={i}
+                      prospect={p}
+                      checked={selected.has(startIndex + i)}
+                      onToggle={() => toggleProspect(startIndex + i)}
+                    />
+                  ))}
+                </>
+              )}
+            </div>
+
+            {/* Pagination — outside scroll area */}
+            {prospects.length > 0 && (
+              <div className="px-4 py-3 border-t border-gray-100 flex items-center justify-between gap-3">
+                <span className="text-gray-600 text-sm font-medium font-['Plus_Jakarta_Sans']">Page {validProspectPage} of {totalPages || 1}</span>
+                <div className="flex items-center gap-2">
+                  <button
+                    disabled={validProspectPage === 1}
+                    onClick={() => setProspectPage(validProspectPage - 1)}
+                    className="px-3 py-1.5 bg-white rounded-lg border border-gray-200 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    Previous
+                  </button>
+                  <button
+                    disabled={validProspectPage === totalPages || totalPages === 0}
+                    onClick={() => setProspectPage(validProspectPage + 1)}
+                    className="px-3 py-1.5 bg-white rounded-lg border border-zinc-300 text-sm font-semibold font-['Plus_Jakarta_Sans'] shadow-sm disabled:text-zinc-300 disabled:cursor-not-allowed text-gray-700 hover:bg-gray-50 transition-colors"
+                  >
+                    Next
+                  </button>
                 </div>
-              </>
+              </div>
             )}
           </div>
 
